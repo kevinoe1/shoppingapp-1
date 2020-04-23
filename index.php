@@ -7,4 +7,5 @@
 </div>
 <!-- FIN DIV Temporal -->
 
+
 <?php include 'templates/footer.php'; ?>

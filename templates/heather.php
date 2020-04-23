@@ -12,116 +12,66 @@ include 'global/conexion.php';
     <title>Shoppingapp</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    
+		<link href="static/css/styles.css" rel="stylesheet" type="text/css" media="all" />
+
+		<script src="https://kit.fontawesome.com/b2dbb6a24d.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    	<!-- Custom-Files -->
-	<link href="static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-	<!-- Bootstrap css -->
-	<link href="static/css/style.css" rel="stylesheet" type="text/css" media="all" />
-	<!-- Main css -->
-	<link rel="stylesheet" href="static/css/fontawesome-all.css">
-	<!-- Font-Awesome-Icons-CSS -->
-	<link href="static/css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
-	<!-- pop-up-box -->
-	<link href="static/css/menu.css" rel="stylesheet" type="text/css" media="all" />
-	<!-- menu style -->
-	<!-- //Custom-Files -->
-
-	<!-- web fonts -->
-	<link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;subset=latin-ext" rel="stylesheet">
-	<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
-	    rel="stylesheet">
-	<!-- //web fonts -->
+ 
 </head>
 <body>
 
+<!-- primer nav -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-<!-- top-header -->
-<div class="agile-main-top">
-		<div class="container-fluid">
-			<div class="row main-top-w3l py-2">
-				<div class="col-lg-4 header-most-top">
-					<p class="text-white text-lg-left text-center">Offer Zone Top Deals & Discounts
-						<i class="fas fa-shopping-cart ml-1"></i>
-					</p>
-				</div>
-				<div class="col-lg-8 header-right mt-lg-0 mt-2">
-					<!-- header lists -->
-					<ul>
-						<li class="text-center border-right text-white">
-							<a class="play-icon popup-with-zoom-anim text-white" href="#small-dialog1">
-								<i class="fas fa-map-marker mr-2"></i>Select Location</a>
-						</li>
-						<li class="text-center border-right text-white">
-							<a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
-								<i class="fas fa-truck mr-2"></i>Track Order</a>
-						</li>
-						<li class="text-center border-right text-white">
-							<i class="fas fa-phone mr-2"></i> 001 234 5678
-						</li>
-						<li class="text-center border-right text-white">
-							<a href="#" data-toggle="modal" data-target="#exampleModal" class="text-white">
-								<i class="fas fa-sign-in-alt mr-2"></i> Log In </a>
-						</li>
-						<li class="text-center text-white">
-							<a href="#" data-toggle="modal" data-target="#exampleModal2" class="text-white">
-								<i class="fas fa-sign-out-alt mr-2"></i>Register </a>
-						</li>
-					</ul>
-					<!-- //header lists -->
-				</div>
-			</div>
+  <div class="row collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="row offset-md-2 col-md-10 navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="offset-md-2 col-md-2 nav-item">
+        <a class="nav-link border-right" href="#"><i class="fas fa-box mr-2"></i>Pedidos </a>
+      </li>
+      <li class="col-md-2 nav-item">
+        <a class="nav-link border-right" href="#"><i class="fas fa-map-marker mr-2"></i>País</a>
+      </li>
+      <li class="col-md-2 nav-item">
+        <a class="nav-link border-right" href="#"><i class="fas fa-phone mr-2"></i>2781 0000</a>
+			</li>
+			<li class="col-md-2 nav-item">
+        <a class="nav-link border-right" href=""><i class="fas fa-sign-in-alt mr-2"></i>Log In</a>
+			</li>
+			<li class="col-md-2 nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-sign-out-alt mr-2"></i>Registrarse</a>
+      </li>
+		</ul>
+  </div>
+</nav>
+<!-- // primer nav -->
+
+<!-- segundo nav -->
+<div class="row" style="width:100%;">
+	<div class="col-md-4">
+		<img src="static/img/Logo_shoppingapp_v2.png" class="col-md-10 offset-md-1" id="logo1" alt="">
+	</div>
+	<div class="col-md-6" >
+			<form class="form-inline" id="search-form" action="#" method="post">
+					<input class="input-flat col-md-9 form-control" type="search" placeholder="Search" aria-label="Search" required>
+					<button class="col-md-2 btn-flat" type="submit">Search</button>
+			</form>
+	</div>
+	<div class="col-md-2">
+		<div style="display:flex;">
+			<a id="lbl-carrito" href=""> <i class="fas fa-shopping-cart"></i> Carrito (0)</a>
 		</div>
-    </div>
+		
+	</div>
+</div>
+<!-- // segundo nav -->
     
 
-    <!-- header-bottom-->
-	<div class="header-bot">
-		<div class="container">
-			<div class="row header-bot_inner_wthreeinfo_header_mid">
-				<!-- logo -->
-				<div class="col-md-3 logo_agile">
-					<h1 class="text-center">
-						<a href="index.html" class=" row font-weight-bold font-italic" style="vertical-align=middle;">
-							<img src="static/img/Logo_ShoppingApp.png" alt=" " class="img-fluid col-md-4"> Shoppingapp
-						</a>
-					</h1>
-				</div>
-				<!-- //logo -->
-				<!-- header-bot -->
-				<div class="col-md-9 header mt-4 mb-md-0 mb-4">
-					<div class="row">
-						<!-- search -->
-						<div class="col-10 agileits_search">
-							<form class="form-inline" action="#" method="post">
-								<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" required>
-								<button class="btn my-2 my-sm-0" type="submit">Search</button>
-							</form>
-						</div>
-						<!-- //search -->
-						<!-- cart details -->
-						<div class="col-2 top_nav_right text-center mt-sm-0 mt-2">
-							<div class="wthreecartaits wthreecartaits2 cart cart box_1">
-								<form action="#" method="post" class="last">
-									<input type="hidden" name="cmd" value="_cart">
-									<input type="hidden" name="display" value="1">
-									<button class="btn w3view-cart" type="submit" name="submit" value="">
-										<i class="fas fa-cart-arrow-down"></i>
-									</button>
-								</form>
-							</div>
-						</div>
-						<!-- //cart details -->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- shop locator (popup) -->
-	<!-- //header-bottom -->
 <?php
     
 ?>
