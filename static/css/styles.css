@@ -23,8 +23,8 @@
     margin-right: 0px!important; 
 }
 
-.bg-light {
-    background-color: #d8bc1d!important;
+.navbar-light{
+    background-color: #FAC400!important;
 }
 
 .navbar-collapse {
@@ -55,6 +55,7 @@
 
 #logo1{
     padding: 2% 0px 0px 0px;
+    content: url('../img/Logo_shoppingapp_v2.png');
 }
 
 
@@ -62,18 +63,25 @@
 #lbl-carrito{
     cursor: pointer;
     text-decoration: none;
-    padding-top: 20%;
+    padding-top: 20%!important;
     padding-left: 5%;
     color: black!important;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif!important;
 }
 
 
+.settings_drop{
+    margin:0px!important;
+    padding: 0px!important;
+    background-color: #E86713!important;
+}
+
+
+
 /* footer */
 footer {
     background: #222;
     color: #aaa;
-    padding-top: 10px;
   }
   
   footer a {
@@ -140,6 +148,41 @@ footer {
 
 
 
+  .card-product .img-wrap {
+    border-radius: 3px 3px 0 0;
+    overflow: hidden;
+    position: relative;
+    height: 220px;
+    text-align: center;
+}
+.card-product .img-wrap img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+}
+.card-product .info-wrap {
+    overflow: hidden;
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+.card-product .bottom-wrap {
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+.label-rating { margin-right:10px;
+    color: #333;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.card-product .price-old {
+    color: #999;
+}
+
+
+
+
 /* ajuste a pantallas */
 @media(max-width: 940px) {
     .navbar-nav > li > a, .navbar-brand {
@@ -153,3 +196,5 @@ footer {
     }  
 }
 /* // ajuste a pantallas */
+
+

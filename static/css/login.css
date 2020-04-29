@@ -1,6 +1,7 @@
 body{
-    /* background: -webkit-linear-gradient(left, #3931af, #00c6ff); */
-    background-image: url('../img/crown-group.jpg');
+    /* background: -webkit-linear-gradient(left, #e67e3d, #d45303);  */
+    background-image: url('../img/fondo_tienda.jpg');
+    background-color: white;
     background-size: cover;
 }
 
@@ -8,7 +9,7 @@ h2{
     font-family: 'Lato', sans-serif;
 }
 
-#cont-register{
+#cont-login{
     background-color: rgba(0, 0, 0, 0.623);
     margin-top: 30px;
     font-family: 'Roboto', sans-serif;
@@ -29,3 +30,36 @@ h2{
     margin-left: 5px;
     cursor: pointer;
 }
+
+#mensaje_alert{
+    visibility: hidden;
+}
+
+.navbar-light{
+    background-color: #FAC400!important;
+}
+
+#logo{
+    width: 100%;
+    position: absolute;
+    top: -10px;
+    left: 0px;
+}
+
+#a_logo{
+    position: absolute;
+    width: 100%;
+}
+
+.btn-flat{
+    background-color: #E86713;
+    border: none;
+    padding: 10px 10px;
+    color: white;
+    margin-left: 5px;
+    cursor: pointer;
+
+
+}
+
+

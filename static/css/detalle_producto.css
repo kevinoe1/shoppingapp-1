@@ -1,0 +1,140 @@
+body{
+    background-color: #f8f8f8;
+}
+
+.alert-secondary{
+    border:none;
+}
+
+.bordered{
+    /* border: 1px solid rgb(214, 214, 214); */
+    padding: 10px;
+    background-color:rgb(255, 255, 255);
+}
+
+.nombre_producto{
+    text-align: left;
+}
+
+#btn-buy{
+    background-color: rgba(255, 0, 0, 0.801);
+    color:white;
+    padding: 15px;
+}
+
+#btn-add-to-cart{
+    background-color: rgba(255, 123, 0, 0.815);
+    color:white;
+    padding: 15px;
+}
+
+hr{
+    margin: 0px!important;
+}
+
+label{
+    font-size: 12px;
+}
+
+p{
+    font-size: 12px;
+}
+a{
+    font-size: 12px;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.no_padding_left{
+    padding-left: 0px!important;
+}
+
+.no_padding_both{
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+}
+
+.white-back{
+    background-color: white;
+}
+
+.right-border{
+    border-right: 1px solid rgb(201, 201, 201);
+    padding: 0px 10px 0px 10px;
+}
+
+.internal-padding{
+    padding: 40px 20px!important;
+    /* margin: 0px!important; */
+}
+
+.text-middle{
+    vertical-align: middle!important;
+}
+
+.card-shipment{
+    border:0px;
+    padding: 20px;
+    background-color: rgba(250, 233, 0, 0.459);
+}
+.card-shipment label{
+    font-size: 15px!important;
+}
+
+.text-bold{
+    font-weight: bold;
+}
+
+.product-image{
+    -webkit-box-shadow: 3px 4px 9px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 4px 9px -1px rgba(0,0,0,0.75);
+    box-shadow: 3px 4px 9px -1px rgba(0,0,0,0.75); 
+
+}
+
+.form-check-label{
+    font-size: 1em;
+    color: #8b8b8b;
+}
+
+/* css para las estrellas de valoración */
+#form {
+    width: 250px;
+  }
+  
+  #form p {
+    text-align: left;
+  }
+  
+  #form label {
+    font-size: 20px;
+    color: grey;
+    margin:0px!important;
+  }
+  
+  #form input[type="radio"] {
+    display: none;
+  }
+  
+  
+  .clasificacion {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+    margin:0px!important;
+  }
+
+
+  #form label:hover,
+  #form label:hover ~ label {
+    color: orange;
+  }
+  
+  #form input[type="radio"]:checked ~ label {
+    color: orange;
+  }
+
+  .md-content{
+      padding: 20px;
+  }

@@ -1,4 +1,5 @@
-<footer>
+
+<footer style="position:relative;">
   <div class="container">
     <div class="row">
       
@@ -72,5 +73,3 @@
     Copyright &copy; 2017 <span>Shoppingapp</span>
   </div>
 </footer>
-</body>
-</html>
