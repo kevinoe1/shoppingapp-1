@@ -49,7 +49,7 @@ if ($sesion = "cerrar"){
         <a class="nav-link border-right" href="#"><i class="fas fa-phone mr-2"></i>2781 0000</a>
 			</li>
 			<li class="col-md-2 nav-item">
-        <a class="nav-link" href="./registro_usuario.php"><i class="fas fa-sign-out-alt mr-2"></i>Registrarse</a>
+        <a class="nav-link" href="/shoppingapp/Registro-Tienda/"><i class="fas fa-sign-out-alt mr-2"></i>Registrarse</a>
       </li>
 		</ul>
   </div>
@@ -79,7 +79,7 @@ if ($sesion = "cerrar"){
         <button type="submit" class="btn-flat col-md-12">Login</button>
         <br>
         <br>
-        <p  class="text-center"><a href="./login.php">Login for customers</a> </p>
+        <p  class="text-center"><a href="/shoppingapp/Login/">Login for customers</a> </p>
     </form>
 
     </div>

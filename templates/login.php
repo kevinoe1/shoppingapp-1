@@ -81,7 +81,7 @@ if ($sesion = "cerrar"){
         <button type="submit" class="btn-flat col-md-12">Login</button>
         <br>
         <br>
-        <p class="text-center" ><a href="./login_tienda.php">Login for Shops</a> </p>
+        <p class="text-center" ><a href="/shoppingapp/Login-Tienda/">Login for Shops</a> </p>
     </form>
 
     </div>

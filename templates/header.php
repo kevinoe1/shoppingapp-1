@@ -89,7 +89,7 @@ $carrito = $buscar_carrito->fetchAll(PDO::FETCH_ASSOC);
 	</div>
 	<div class="col-md-2">
     <div style="display:flex;">
-      <a id="lbl-carrito" href="./carrito.php"> <i class="fas fa-shopping-cart"></i> Carrito ( <?php echo count($carrito) ?> )</a>
+      <a id="lbl-carrito" href="/shoppingapp/Carrito/"> <i class="fas fa-shopping-cart"></i> Carrito ( <?php echo count($carrito) ?> )</a>
 		</div>
 		
 	</div>
