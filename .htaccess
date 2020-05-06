@@ -1,0 +1,17 @@
+RewriteEngine On
+
+RewriteRule ^$ index.php
+RewriteRule ^Registro-Usuario/?$ templates/registro_usuario.php
+RewriteRule ^Registro-Tienda/?$ templates/registro_tienda.php
+RewriteRule ^Tiendas/?$ templates/tiendas.php
+RewriteRule ^Paises/?$ templates/paises.php
+RewriteRule ^Home/?$ templates/home.php
+RewriteRule ^Admin/?$ templates/registro_datos.php
+RewriteRule ^Agregar-Categoria/?$ templates/registro_categoria.php
+RewriteRule ^Ver-Categoria/?$ templates/ver_categorias.php
+RewriteRule ^Productos/?$ templates/productos.php
+RewriteRule ^Producto-Detalle/?$ templates/detalle_producto.php
+RewriteRule ^Login/?$ templates/login.php
+RewriteRule ^Login-Tienda/?$ templates/login_tienda.php
+RewriteRule ^css/?$ static/css/styles.css
+
