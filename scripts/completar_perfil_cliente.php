@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 include ("../global/config.php");
 include ("../global/conexion.php");
 session_start();
@@ -42,17 +42,12 @@ session_start();
                     $tmp_foto = $_FILES['input_imagen']['tmp_name'];
 
             
-                    if ($_FILES["input_imagen"]["size"] > 1000000) {
-                        echo "Sorry, your file is too large.";
-                        $uploadOk = 0;
-                    }elseif($tmp_foto != ""){
+                    if($tmp_foto != ""){
                         if(file_exists ('../uploads/img/perfiles/'.$nombre_archivo)){
                             unlink('../uploads/img/perfiles/'.$nombre_archivo);
                         }
-                    move_uploaded_file($tmp_foto, '../uploads/img/perfiles/'.$nombre_archivo);
-                    
-                   
-                        
+                        move_uploaded_file($tmp_foto, '../uploads/img/perfiles/'.$nombre_archivo);
+                      
                     }
 
                     $actualizar_usuario = $pdo->prepare("UPDATE `Usuarios` SET `Foto` = :Foto 
@@ -63,11 +58,8 @@ session_start();
 
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                    try{
-                        $actualizar_usuario->execute();
-                    }catch(PDOException $e){
-                        echo $e->getMessage();
-                    }
+                    $actualizar_usuario->execute();
+                   
                 }
                
 
@@ -89,14 +81,9 @@ session_start();
                 
 
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-                try{
-                    $actualizar_cliente->execute();
-                    header('location: ../templates/home.php');
-                }catch(PDOException $e){
-                    echo $e->getMessage();
-                }
-               
+                $actualizar_cliente->execute();
+                header('Location ../Home');
+                
     
             break;
         }

@@ -1,4 +1,4 @@
 <?php
-header('location: templates/home.php');
+header('location: Home');
 ?>
 

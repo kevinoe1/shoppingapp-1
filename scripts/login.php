@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 include ("../global/config.php");
 include ("../global/conexion.php");
 
@@ -26,7 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         header('location: ../index.php');
     }else{
        
-        header('location: ../templates/login.php');
+        header('location: ../Login');
         echo "<script>alert('No existe el usuario')</script>";
     }
 }

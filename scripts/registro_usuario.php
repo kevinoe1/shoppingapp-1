@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 include ("../global/config.php");
 include ("../global/conexion.php");
 
@@ -29,12 +29,14 @@ include ("../global/conexion.php");
         $tipoUsuario = 1;
         $idioma = 1;
         $foto = "";
+        $codigo_confirmacion = 'C' . DATE('His') .'d'. DATE('Ymd');
+        
 
         switch($action){
             case "register":
             
-                $insert_usuario = $pdo->prepare("INSERT INTO Usuarios(NombreUsuario, Contrasena, Correo, Estado, FK_TipoUsuario, FK_Idioma, Foto)
-                                                        VALUES(:NombreUsuario, :Contrasena, :Correo, :Estado, :FK_TipoUsuario, :FK_Idioma, :Foto)");
+                $insert_usuario = $pdo->prepare("INSERT INTO Usuarios(NombreUsuario, Contrasena, Correo, Estado, FK_TipoUsuario, FK_Idioma, Foto, CodigoConfirmacion)
+                                                        VALUES(:NombreUsuario, :Contrasena, :Correo, :Estado, :FK_TipoUsuario, :FK_Idioma, :Foto, :CodigoConfirmacion)");
     
                 $insert_usuario->bindParam(':NombreUsuario', $username);
                 $insert_usuario->bindParam(':Contrasena', $password);
@@ -43,13 +45,13 @@ include ("../global/conexion.php");
                 $insert_usuario->bindParam(':FK_TipoUsuario', $tipoUsuario);
                 $insert_usuario->bindParam(':FK_Idioma', $idioma);
                 $insert_usuario->bindParam(':Foto', $foto);
+                $insert_usuario->bindParam(':CodigoConfirmacion', $codigo_confirmacion);
     
              
                 
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 try{
-                    // print_r($crear_usuario);
                     $insert_usuario->execute();
                 }catch(PDOException $e){
                     echo $e->getMessage();
@@ -75,9 +77,8 @@ include ("../global/conexion.php");
                 $insert_cliente->bindParam(':Telefono', $telephone);
                 try{
                     $insert_cliente->execute();
-                    header('location: ../templates/login.php');
+                    header('location: ../scripts/email.php?c='.$codigo_confirmacion.'&m='.$email);
                 }catch(PDOException $e){
-                    header('location: ../templates/login.php');
                     echo "Error ". $e->getMessage();
                 }
     

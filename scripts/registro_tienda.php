@@ -1,8 +1,9 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 include ("../global/config.php");
 include ("../global/conexion.php");
+include ("../global/const.php");
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
@@ -28,12 +29,13 @@ include ("../global/conexion.php");
         $tipoUsuario = 2;
         $idioma = 1;
         $foto = "";
+        $codigo_confirmacion = 'C' . DATE('His') .'d'. DATE('Ymd');
 
         switch($action){
             case "register":
             
-                $insert_usuario = $pdo->prepare("INSERT INTO Usuarios(NombreUsuario, Contrasena, Correo, Estado, FK_TipoUsuario, FK_Idioma, Foto)
-                                                        VALUES(:NombreUsuario, :Contrasena, :Correo, :Estado, :FK_TipoUsuario, :FK_Idioma, :Foto)");
+                $insert_usuario = $pdo->prepare("INSERT INTO Usuarios(NombreUsuario, Contrasena, Correo, Estado, FK_TipoUsuario, FK_Idioma, Foto, CodigoConfirmacion)
+                                                        VALUES(:NombreUsuario, :Contrasena, :Correo, :Estado, :FK_TipoUsuario, :FK_Idioma, :Foto, :CodigoConfirmacion)");
     
                 $insert_usuario->bindParam(':NombreUsuario', $nombreUsuario);
                 $insert_usuario->bindParam(':Contrasena', $contrasena);
@@ -42,16 +44,15 @@ include ("../global/conexion.php");
                 $insert_usuario->bindParam(':FK_TipoUsuario', $tipoUsuario);
                 $insert_usuario->bindParam(':FK_Idioma', $idioma);
                 $insert_usuario->bindParam(':Foto', $foto);
+                $insert_usuario->bindParam(':CodigoConfirmacion', $codigo_confirmacion);
                 
+                echo json_encode($_POST);
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 try{
-                    // print_r($crear_usuario);
                     $insert_usuario->execute();
-                    header('location: ../templates/login.php');
                 }catch(PDOException $e){
                     echo $e->getMessage();
-                    header('location: ../templates/login.php');
                 }
                
                 $buscar_usuario = $pdo->prepare("SELECT PK_Usuario FROM Usuarios WHERE NombreUsuario = :nombreUsuario");
@@ -59,14 +60,14 @@ include ("../global/conexion.php");
                 $buscar_usuario->execute();
                 $usuario_creado = $buscar_usuario->fetchAll(PDO::FETCH_ASSOC);
                 
-                $correoPaypal = "";
+                $id_cliente_paypal = "";
                 $logo = "";
                 $adomicilio = 0;
                 $portada = "";
 
                 //Insertar Tienda
-                $insert_tienda = $pdo->prepare("INSERT INTO `Tiendas` (`PK_Tienda`, `NombreTienda`, `NombreContacto`, `ApellidoContacto`, `Direccion1`, `Direccion2`, `SitioWeb`, `Correo`, `CorreoPaypal`, `Logo`, `Adomicilio`, `FK_Ciudad`, `FK_Usuario`, `Telefono`, `Portada`) 
-                                                                 VALUES (NULL, :NombreTienda, :NombreContacto, :ApellidoContacto, :Direccion1, :Direccion2, :SitioWeb, :Correo, :CorreoPaypal, :Logo, :Adomicilio, :FK_Ciudad, :FK_Usuario, :Telefono, :Portada)");
+                $insert_tienda = $pdo->prepare("INSERT INTO `Tiendas` (`PK_Tienda`, `NombreTienda`, `NombreContacto`, `ApellidoContacto`, `Direccion1`, `Direccion2`, `SitioWeb`, `Correo`, `IDClientePaypal`, `Logo`, `Adomicilio`, `FK_Ciudad`, `FK_Usuario`, `Telefono`, `Portada`) 
+                                                                 VALUES (NULL, :NombreTienda, :NombreContacto, :ApellidoContacto, :Direccion1, :Direccion2, :SitioWeb, :Correo, :IDClientePaypal, :Logo, :Adomicilio, :FK_Ciudad, :FK_Usuario, :Telefono, :Portada)");
                 $insert_tienda->bindParam(':NombreTienda', $nombreTienda);
                 $insert_tienda->bindParam(':NombreContacto', $nombreContacto);
                 $insert_tienda->bindParam(':ApellidoContacto', $apellidoContacto);
@@ -74,7 +75,7 @@ include ("../global/conexion.php");
                 $insert_tienda->bindParam(':Direccion2', $direccion2);
                 $insert_tienda->bindParam(':SitioWeb', $webSite);
                 $insert_tienda->bindParam(':Correo', $correo);
-                $insert_tienda->bindParam(':CorreoPaypal', $correoPaypal);
+                $insert_tienda->bindParam(':IDClientePaypal', $id_cliente_paypal);
                 $insert_tienda->bindParam(':Logo', $logo);
                 $insert_tienda->bindParam(':Adomicilio', $adomicilio);
                 $insert_tienda->bindParam(':FK_Ciudad', $ciudad);
@@ -86,9 +87,8 @@ include ("../global/conexion.php");
                 
                 try{
                     $insert_tienda->execute();
-                    header('location: ../templates/login_tienda.php');
+                    header('location: email_tienda.php?c='.$codigo_confirmacion.'&m='.$correo);
                 }catch(PDOException $e){
-                    header('location: ../templates/login_tienda.php');
                     echo "Error ". $e->getMessage() . $e->errorInfo();
                 }
     

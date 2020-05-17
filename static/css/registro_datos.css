@@ -43,6 +43,14 @@ body{
     background-color: black!important;
 }
 
+.instruccion{
+    font-size: 13px;
+    background-color: rgb(158, 158, 158)!important;
+    padding: 10px;
+    color:white;
+    border-radius: 10px;
+}
+
 .list-group-item{
     padding: 0px!important;
 }
@@ -54,8 +62,56 @@ body{
     width: 150px!important;
 }
 
+button.close{
+    background-color: rgba(255, 123, 0, 0.849)!important;
+    color: white;
+    width: 100%;
+    padding: 15px;
+}
 
-/* 
-.btn-primary :hover{
-    background-color: rgb(25, 31, 34)!important;
-} */
+  .close {
+    float: right;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 0px 0 #fff;
+    opacity: 1;
+}
+
+#btnEditar{
+    border-radius: 5px!important;
+}
+
+.btn-modal{
+    padding: 10px!important;
+}
+
+.btn-edit i{
+    font-size: 1.4em;
+    margin: 0px;
+    padding: 0px!important;
+    color: rgb(0, 153, 255);
+}
+
+.btn-eliminar i{
+    font-size: 1.4em;
+    margin: 0px;
+    padding: 0px!important;
+    color: rgba(255, 0, 0, 0.74);
+}
+
+.alert-success{
+    background-color: rgba(40, 175, 6, 0.801)!important;
+    color: white!important;
+}
+
+.alert-danger{
+    background-color: rgba(228, 38, 13, 0.801)!important;
+    color: white!important;
+}
+
+.btn-primary{
+    background-color: rgba(8, 124, 233, 0.89)!important;
+    border: none;
+}

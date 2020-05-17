@@ -1,8 +1,9 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ini_set('display_errors', '0');
 include '../global/config.php';
 include '../global/conexion.php';
+include '../global/const.php';
 
 session_start();
 
@@ -30,7 +31,7 @@ $select_colores->execute();
 $colores = $select_colores->fetchAll(PDO::FETCH_ASSOC);
 
 
-$select_producto = $pdo->prepare("SELECT p.Adomicilio as 'pAdomicilio', p.PK_Producto, p.NombreProducto, t.NombreTienda, p.PrecioUnitario, p.Descuento, t.Adomicilio, p.PrecioEnvio, p.UnidadesDisponibles, p.Imagen FROM 
+$select_producto = $pdo->prepare("SELECT p.Ranking, p.Adomicilio as 'pAdomicilio', p.PK_Producto, p.NombreProducto, t.NombreTienda, p.PrecioUnitario, p.Descuento, t.Adomicilio, p.PrecioEnvio, p.UnidadesDisponibles, p.Imagen FROM 
                                 Productos p INNER JOIN Tiendas t ON p.FK_Tienda = t.PK_Tienda
                                 WHERE p.PK_Producto = :PK_Producto");
 $select_producto->bindParam(':PK_Producto', $pk_producto);
@@ -53,31 +54,34 @@ $select_destinatarios->bindParam(':PK_Usuario', $_SESSION['login_user']);
 $select_destinatarios->execute();
 $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
 
+
+
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" id="hl-viewport" content="width=device-width, initial-scale=1, user-scalable=yes, minimum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Shoppingapp</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link href="../static/css/styles.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="../static/css/detalle_producto.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="../static/css/toasts.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="<?php URL_SITIO ?>static/css/styles.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="<?php URL_SITIO ?>static/css/detalle_producto.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="<?php URL_SITIO ?>static/css/toasts.css" rel="stylesheet" type="text/css" media="all" />
     
-    <script src="../static/js/jquery-3.5.0.min.js" ></script>
+    <script src="<?php URL_SITIO ?>static/js/jquery-3.5.0.min.js" ></script>
 	<script src="https://kit.fontawesome.com/b2dbb6a24d.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
    
- 
+    <?php include 'iconos.php' ?>
 </head>
 <body>
     <!-- toast -->
-    <a href="./carrito.php">
+  
 <div role="alert" data-delay="5000" aria-live="assertive" aria-atomic="true" id="toast_mensaje" class="toast" data-autohide="true">
         
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -88,44 +92,48 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
         </div>
         
 </div> 
-</a>
  <!-- /toast -->   
 
 <?php include '../templates/header.php'; ?>
 
 <!-- DIV temporal -->
 <div style="" class="text-center">
-    
+<div style="font-size:15px;color:gray;" class="alert text-left alert-secondary">NombreTienda / Categoría / producto</div>
+
     <div class="no-padding-both no_padding_both container">
-        <div class="alert alert-secondary">
-        </div>
   
         <br>
         <div class="row">
             <div class="col-md-5 bordered">
-                <div class="product-image" >
-                    <img style="height:450px" src="../<?php echo $productos[0]['Imagen'] ?>" alt="">
-                </div>
+                <div class="col-md-12" style="content:url('<?php echo URL_SITIO.$productos[0]['Imagen'] ?>')" ></div>
             </div>
             <div class="col-md-7 bordered">
-            <form id="form_detalle_producto" action="../scripts/detalle_producto.php" method="post" enctype="multipart/form-data">
+            <form id="form_detalle_producto" action="<?php echo URL_SITIO ?>scripts/detalle_producto.php" method="post" enctype="multipart/form-data">
                 <div clas="row">
                     <h4 class="nombre_producto"><?php echo $productos[0]['NombreProducto'] ?></h4>
                 </div>
-                <div class="row">
+                <div class="">
                     <div id="form" class="col-md-12">
-                        <p class="">
-                            <input id="radio1" type="radio" name="estrellas" value="5"><!--
-                            --><label for="radio1">★</label><!--
-                            --><input id="radio2" type="radio" name="estrellas" value="4"><!--
-                            --><label for="radio2">★</label><!--
-                            --><input id="radio3" type="radio" name="estrellas" value="3"><!--
-                            --><label for="radio3">★</label><!--
-                            --><input id="radio4" type="radio" name="estrellas" value="2"><!--
-                            --><label for="radio4">★</label><!--
-                            --><input id="radio5" type="radio" name="estrellas" value="1"><!--
-                            --><label for="radio5">★</label>
-                        <span for="">Valoración del artículo</span>
+                        <p class="valoracion">
+                            <?php 
+                            $cont = 1;
+                            $ranking = $productos[0]['Ranking'];
+
+                            
+                            for($i = 1; $i <= 5; $i++){ 
+                                if($cont <= $ranking){
+                                ?>
+                                    <label for="radio1" class="orange">★</label>
+                                <?php 
+                                $cont+=1;
+                                }else{?>
+                                    <label for="radio1" class="">★</label>
+                                <?php }
+                                
+                            } ?>
+
+
+                        <span class="col-md-12" for=""> Valoración del artículo</span>
                         </p>
                     </div>
                 </div>
@@ -134,14 +142,14 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
                     <label for="col-md-12">Tienda: <a href=""> <?php echo $productos[0]['NombreTienda'] ?></a> </label>
                 </div>
                 <div class="row col-md-12">
-                    <div class="no_padding_left right-border"> <a href="">Contactar tienda</a> </div>
-                    <div class="right-border"> <a href=""> Visitar tienda </a> </div>
-                    <div class="right-border"> <a href=""> Visitar sitio web de la tienda </a> </div>
+                    <div class="link no_padding_left right-border"> <a href="">Contactar tienda</a> </div>
+                    <div class="link right-border"> <a href=""> Visitar tienda </a> </div>
+                    <div class="link right-border"> <a href=""> Visitar sitio web de la tienda </a> </div>
                 </div>
                 <br>
                 <div class="detail-cont row col-md-12">
                     <div class=" col-md-12 no_padding_both text-left">
-                        <h4>$  <?php echo $productos[0]['PrecioUnitario'] ?></h4>
+                        <h4 class="precio">$  <?php echo $productos[0]['PrecioUnitario'] ?></h4>
                     </div>
                     <div class="col-md-12 no_padding_both text-left">
                         <label for="">Descuento <label class="text-bold" for="">- <?php echo $productos[0]['Descuento'] ?>%</label></label>
@@ -150,34 +158,38 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
                 <hr>
                 <br>
                 <div class="detail-cont row col-md-12">
-                    <div class=" col-md-4 no_padding_both text-left">
-                        <div class=" no_padding_both form-group col-md-12">
-                            <label for="inputTalla">Talla: <span class="text_required">*</span> </label>
-                            <select  id="inputTalla" name="input_talla" class="form-control">
-                                <option selected>- Seleccione -</option>
-                                <?php
-                                    foreach($tallas as $talla){
-                                        echo "<option value='". $talla['PK_Talla'] ."' >".$talla['Talla']."</option>";
-                                    }
+                    <?php if(count($tallas)>0){ ?>
+                        <div class=" col-md-4 no_padding_both text-left">
+                            <div class=" no_padding_both form-group col-md-12">
+                                <label for="inputTalla">Talla: <span class="text_required">*</span> </label>
+                                <select  id="inputTalla" name="input_talla" class="form-control">
+                                    <option selected>- Seleccione -</option>
+                                    <?php
+                                        foreach($tallas as $talla){
+                                            echo "<option value='". $talla['PK_Talla'] ."' >".$talla['Talla']."</option>";
+                                        }
+                                        ?>
+                                </select>
+                            </div>
+                        </div>
+                    <?php } ?>
+                    <div class="form-group col-md-4 text-left">
+                        <label for="inputCantidad">Cantidad:</label><label class="text-bold unidades_disponibles" for="" >(<?php echo $productos[0]['UnidadesDisponibles'] ?> disponibles)</label>
+                        <input class="col-md-12 frm_ctrl form-control" type="number" id="inputCantidad" name="input_cantidad" min="1" max="5">
+                    </div>
+                    <?php if(count($colores)>0){ ?>
+                        <div class="form-group col-md-4 no_padding_both  text-left">
+                            <label for="" >Color: </label>
+                            <select  id="inputColor" name="input_color" class="form-control">
+                                    <option selected>- Seleccione -</option>
+                                    <?php
+                                        foreach($colores as $color){
+                                            echo "<option value='". $color['PK_Color'] ."' >".$color['Color']."</option>";
+                                        }
                                     ?>
                             </select>
                         </div>
-                    </div>
-                    <div class="col-md-4 text-left">
-                        <label for="inputCantidad">Cantidad:</label><label class="text-bold" for="" >(<?php echo $productos[0]['UnidadesDisponibles'] ?> units in stock)</label>
-                        <input class="col-md-12 form-control" type="number" id="inputCantidad" name="input_cantidad" min="1" max="5">
-                    </div>
-                    <div class="col-md-4 no_padding_both  text-left">
-                        <label for="" >Color: </label>
-                        <select  id="inputColor" name="input_color" class="form-control">
-                                <option selected>- Seleccione -</option>
-                                <?php
-                                    foreach($colores as $color){
-                                        echo "<option value='". $color['PK_Color'] ."' >".$color['Color']."</option>";
-                                    }
-                                ?>
-                        </select>
-                    </div>
+                    <?php } ?>
                 </div>
 
                 <fieldset class="text-left form-group">
@@ -210,9 +222,9 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
                         <div class="detail-cont row col-md-12">
                             <div class=" col-md-4 no_padding_both text-left" id="box_destinatario">
                                 <div class=" no_padding_both form-group col-md-12">
-                                    <label for="inputTalla">Destinatario: <span class="text_required">*</span> </label>
+                                    <label for="">Destinatario:</label>
                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Seleccionar</button>
-                                    <label for="" class="output"></label>
+                                    <label for="" id="inputDestinatario" class="output"></label>
 
                                     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
@@ -222,8 +234,7 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
                                             <fieldset class="text-left form-group">
                                                 <?php 
                                                 foreach($destinatarios as $destinatario){
-                                                    // if($productos[0]['pAdomicilio'] == 1){ 
-                                                    
+                                                   
                                                     ?>
                                                     <br>
                                                     <hr>
@@ -237,15 +248,6 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
                                                         <div clas="row col-md-12" for=""><?php echo $destinatario['Telefono'] ?></div>
                                                     </label>
                                                 </div>
-                                                <?php 
-                                                    //}else{ 
-                                                ?>
-                                                    <!-- <div class="form-check">
-                                                        <input class="form-check-input" type="radio" disabled name="input_destinatario" id="inputHomeNo" value="0">
-                                                        <label class="form-check-label" for="inputHomeNo">
-                                                        A domicilio
-                                                        </label>
-                                                    </div> -->
                                                 <?php 
                                                         //} 
                                                     } 
@@ -271,8 +273,8 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
                                     </select> -->
                                 </div>
                             </div>
-                        <label for="" class="text-left text-bold col-md-12">Se hacen envíos a domicilio</label>
-                        <label for='' class='text-left col-md-12'>Precio del envío: $ <?php $productos[0]['PrecioEnvio']?></label>
+                        <label for="" class="text-left text-bold col-md-12 text_envios">Se hacen envíos a domicilio</label>
+                        <label for='' class='text-left col-md-12'>Precio del envío: $ <?php echo $productos[0]['PrecioEnvio']?></label>
                     <?php }else{ ?>
                         <label for="" class="text-left text-bold col-md-12">No se hacen envíos</label>
                     
@@ -282,26 +284,30 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
                 <div class="row col-md-12">
                     <input type="hidden" name="PK_Producto" id="PK_Producto" value="<?php echo $productos[0]['PK_Producto'] ?>">
                     <div class="col-md-4">
-                        <button value="comprar" name="action" type="submit" id="btn-buy" class="btn col-md-12">Buy</button>
+                        <button value="comprar" name="action" type="" id="btn-buy" class="btn col-md-12">Comprar</button>
                     </div>
                     <div class="col-md-4">
-                        <button value="agregar_carrito"  name="action"  type="" id="btn-add-to-cart" class="btn col-md-12">Add to Cart</button>
+                        <button value="agregar_carrito"  name="action"  type="" id="btn-add-to-cart" class="btn col-md-12">Agregar al carrito</button>
                     </div>
                 </div>
                 <br>
                 <br>
             </form>
+            <!-- <form id="form_solouno" action="./pago_solouno.php" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="PK_Producto" id="PK_Producto" value="<?php echo $productos[0]['PK_Producto'] ?>">
+            </form> -->
 
+            
             </div>
         </div>
         <br>
         <br>
 
-       
-        <div class="row  white-back internal-padding text-left ">
+    </div>
+        <!-- <div class="row  white-back internal-padding text-left ">
             <h4>Item description</h4>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi hic earum sequi quaerat ratione totam doloremque corporis. Qui pariatur fuga quaerat enim hic nobis illum, nisi quidem perspiciatis, iure facilis.</p>
-        </div>
+        </div> -->
     </div>
     
     <br>
@@ -324,10 +330,18 @@ $('#box_destinatario').hide();
 
 	$(document).ready(function(){
 
-		$('#btn-buy').on('click', function (event) {
-            event.preventDefault();
-            toast('En construción');
-        });
+		// $('#btn-buy').on('click', function (event) {
+        //     event.preventDefault();
+           
+        //         url = 'pago_solouno.php?p=' + '<?php echo $productos[0]['PK_Producto'] ?>' 
+        //                                     + '&t=' + $('#inputTalla').val() 
+        //                                     + '&co=' + $('#inputColor').val()
+        //                                     + '&ca=' + $('#inputCantidad').val()
+        //                                     + '&d=' + $('#inputDestinatario').val();
+        //         window.location = url;
+
+             
+        // });
 
       
 
@@ -336,12 +350,10 @@ $('#box_destinatario').hide();
         $('#inputColor').val('1');
 
 		// $('#btn-add-to-cart').on('click', function (event) {
-        //     // event.preventDefault();
+        //     event.preventDefault();
 
-        //     // submitForm($('#form_detalle_producto'));
-        //     // toast('Added to the cart');
-        //     // window.location ="carrito.php";
-
+        //     submitForm($('#form_detalle_producto'), '<?php echo URL_SITIO ?>scripts/detalle_producto.php'))
+            
         // });
 
         $('#contInputHomeNo').on('click', function(event){
@@ -370,7 +382,7 @@ $('#box_destinatario').hide();
             $.ajax({
                     type:"POST",
                     async: false,
-                    url:"../scripts/datos_ajax.php",
+                    url:"<?php echo URL_SITIO ?>scripts/datos_ajax.php",
                     data: {"request" : "obtenerNombreDestinatario", 
                             "PK_Destinatario" : output},
                     success:function(r){
@@ -390,8 +402,8 @@ $('#box_destinatario').hide();
         }
 
 
-        function submitForm(form){
-            var url = form.attr("action");
+        function submitForm(form, p_url){
+            var url = p_url;
             var formData = $(form).serializeArray();
             formData.push({'name':'action','value': 'agregar_carrito'})
             $.post(url, formData).done(function (data) {

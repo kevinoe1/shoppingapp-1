@@ -58,6 +58,15 @@ body{
     color: rgb(243, 147, 109)!important;
 }
 
+.i-check{
+    font-size: 35px;
+    color: rgb(10, 196, 10);
+}
+
+.i-error{
+    font-size: 35px;
+    color: rgb(240, 45, 45);
+}
 
 /* 
 .btn-primary :hover{

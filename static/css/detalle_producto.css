@@ -101,7 +101,7 @@ a{
 
 /* css para las estrellas de valoración */
 #form {
-    width: 250px;
+    /* width: 250px; */
   }
   
   #form p {
@@ -126,15 +126,142 @@ a{
   }
 
 
-  #form label:hover,
-  #form label:hover ~ label {
-    color: orange;
+  .orange {
+    color: orange!important;
   }
   
-  #form input[type="radio"]:checked ~ label {
+  /* #form input[type="radio"]:checked ~ label {
     color: orange;
-  }
+  } */
 
   .md-content{
       padding: 20px;
   }
+
+  button.close{
+    background-color: rgba(255, 123, 0, 0.849)!important;
+    color: white;
+    width: 100%;
+    padding: 15px;
+}
+
+  .close {
+    float: right;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1;
+    color: #000;
+    text-shadow: 0 0px 0 #fff;
+    opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @media (max-width: 600px) {
+    
+    .bordered{
+        padding: 0px;
+    }
+
+    .row{
+        width: 100%!important;
+        padding: 0% 5% 0% 5%;
+        margin: 0px;
+    }
+
+    .nombre_producto{
+        margin-top:30px;
+        margin-bottom: 0px;
+    }
+
+    .col-md-12{
+        padding: 0px;
+    }
+
+    .valoracion{
+        font-size: 1em;
+    }
+
+    #form{
+        margin: 0px!important;
+    }
+
+    label, a{
+        font-size: 1.2em;
+        margin:0px;
+    }
+
+    body{
+        background-color: white;
+    }
+
+    .form-control{
+        font-size: 1.4em!important;
+    }
+
+    .link{
+        font-size: 0.8em;
+    }
+
+    .precio{
+        font-size: 3em;
+        font-weight: bold;
+    }
+
+    .form-check {
+        font-size: 1.4em;
+    }
+
+    .card-shipment {
+        padding: 20px!important;
+    }
+
+    .col-md-4{
+        padding: 0px;
+    }
+
+    .btn{
+        margin-bottom: 10px;
+    }
+
+    .btn-primary{
+        font-size: 1.2em;
+    }    
+
+    .card-shipment label {
+        font-size: 1.2em!important;
+    }
+
+    .md-content{
+        padding: 20px;
+    }
+
+    button.close{
+        background-color: rgba(255, 123, 0, 0.849)!important;
+        color: white;
+        width: 100%;
+        padding: 40px;
+    }
+
+    .close {
+        float: right;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 0px 0 #fff;
+        opacity: 1;
+    }
+
+}

@@ -19,8 +19,13 @@ if (isset($_SESSION['login_user'])){ //Comprobar si ha iniciado sesión
     $usuario = $consulta_tipo_usuario->fetchAll(PDO::FETCH_ASSOC);
    
 
-
-    if($usuario[0]['FK_TipoUsuario'] == 1){
+    if($usuario[0]['EstadoCorreo'] == 0){
+        if($usuario[0]['FK_TipoUsuario'] == 1 || $usuario[0]['FK_TipoUsuario'] == 3){
+            header('Location: login.php?msj=nc');
+        }elseif($usuario[0]['FK_TipoUsuario'] == 2){
+            header('Location: login_tienda.php?msj=nc');
+        }
+    }elseif($usuario[0]['FK_TipoUsuario'] == 1){
 
         // consultar si el cliente ha completado su peril    
         $buscar_perfil = $pdo->prepare("SELECT PrimerNombre FROM Clientes
@@ -42,7 +47,7 @@ if (isset($_SESSION['login_user'])){ //Comprobar si ha iniciado sesión
     }elseif($usuario[0]['FK_TipoUsuario'] == 2){
 
         // consultar si la tienda ha completado su peril    
-        $buscar_perfil = $pdo->prepare("SELECT CorreoPaypal FROM Tiendas
+        $buscar_perfil = $pdo->prepare("SELECT IDClientePaypal FROM Tiendas
                                         WHERE FK_Usuario = :FK_Usuario;");
 
         $buscar_perfil->bindParam(':FK_Usuario', $_SESSION['login_user']);
@@ -52,7 +57,7 @@ if (isset($_SESSION['login_user'])){ //Comprobar si ha iniciado sesión
         $estado_perfil = $buscar_perfil->fetchAll(PDO::FETCH_ASSOC);
 
         // comprobar si el perfil esta completo
-        if($estado_perfil[0]['CorreoPaypal'] == ""){
+        if($estado_perfil[0]['IDClientePaypal'] == ""){
             $perfil_completo = 0;
         }else{
             $perfil_completo = 1;
@@ -71,16 +76,36 @@ if (isset($_SESSION['login_user'])){ //Comprobar si ha iniciado sesión
     // header('Location: ./home.php');
     if($perfil_completo == 0 && $tipo_usuario == 1){
         $_SESSION['perfil_incompleto'] = 1; 
-        header('Location: completar_perfil_cliente.php');
+        header('Location: Completar-Perfil-Cliente');
         
     }elseif ($perfil_completo == 0 && $tipo_usuario == 2){
         $_SESSION['perfil_incompleto'] = 1; 
-        header('Location: completar_perfil_tienda.php');
+        header('Location: Completar-Pefil-Tienda');
         
     }
     
 }else{
-    header('Location: login.php');
-    // header('Location: completar_perfil_tienda.php');
+    
+    function redirect($url)
+    {
+        if (!headers_sent())
+        {    
+            header('Location: '.$url);
+            //echo $_SESSION['login_user'];
+            exit;
+            }
+        else
+            {  
+            echo '<script type="text/javascript">';
+            echo 'window.location.href="'.$url.'";';
+            echo '</script>';
+            echo '<noscript>';
+            echo '<meta http-equiv="refresh" content="0;url='.$url.'" />';
+            echo '</noscript>'; exit;
+        }
+    }
+    
+    redirect('../Login');
+
 }
 ?>
