@@ -60,7 +60,32 @@ $u = (isset($_REQUEST['u']))?$_REQUEST['u']:"";
     <?php include 'iconos.php' ?>
 
 </head>
+<<<<<<< HEAD
 <body id="body-tienda">
+=======
+<body>
+    <!-- primer nav -->
+<nav class="navbar navbar-expand-lg navbar-light ">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="row collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="row col-md-12 navbar-nav ml-auto mt-2 mt-lg-0">
+    <li class=" col-md-2 nav-item">
+        <a id="a_logo" href="../index.php"><img id="logo" src="../static/img/Logo_shoppingapp_v2.png" alt="Logo Shoppingapp"></a>
+      </li>
+      <li class="offset-md-6 col-md-2 nav-item">
+        <a class="nav-link border-right" href="#"><i class="fas fa-phone mr-2"></i>2781 0000</a>
+			</li>
+			<li class="col-md-2 nav-item">
+        <a class="nav-link" href="/shoppingapp/Registro-Tienda/"><i class="fas fa-sign-out-alt mr-2"></i>Registrarse</a>
+      </li>
+		</ul>
+  </div>
+</nav>
+<!-- // primer nav -->  
+>>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
 
 
 <br>
@@ -105,7 +130,11 @@ $u = (isset($_REQUEST['u']))?$_REQUEST['u']:"";
         <button type="submit" class="btn-flat col-md-12">Iniciar sesión</button>
         <br>
         <br>
+<<<<<<< HEAD
         <p  class="text-center"><a href="Login">Login para clientes</a> </p>
+=======
+        <p  class="text-center"><a href="/shoppingapp/Login/">Login for customers</a> </p>
+>>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
     </form>
 
     </div>

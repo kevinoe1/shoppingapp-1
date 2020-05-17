@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Options +FollowSymLinks
 RewriteEngine On
 
@@ -38,3 +39,23 @@ RewriteRule ^Pago/?$ templates/pago.php
 RewriteRule ^Index/?$ index.php
 RewriteRule ^Confirmacion-Pago/?$ templates/confirmacion_pago.php
 RewriteRule ^Confirma/?$ templates/confirmacion_pago.php
+=======
+RewriteEngine On
+
+RewriteRule ^$ index.php
+RewriteRule ^Registro-Usuario/?$ templates/registro_usuario.php
+RewriteRule ^Registro-Tienda/?$ templates/registro_tienda.php
+RewriteRule ^Tiendas/?$ templates/tiendas.php
+RewriteRule ^Paises/?$ templates/paises.php
+RewriteRule ^Home/?$ templates/home.php
+RewriteRule ^Admin/?$ templates/registro_datos.php
+RewriteRule ^Agregar-Categoria/?$ templates/registro_categoria.php
+RewriteRule ^Ver-Categoria/?$ templates/ver_categorias.php
+RewriteRule ^Productos/?$ templates/productos.php
+RewriteRule ^Producto-Detalle/?$ templates/detalle_producto.php
+RewriteRule ^Carrito/?$ templates/carrito.php
+RewriteRule ^Login/?$ templates/login.php
+RewriteRule ^Login-Tienda/?$ templates/login_tienda.php
+RewriteRule ^css/?$ static/css/styles.css
+
+>>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3

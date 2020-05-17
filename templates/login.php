@@ -115,9 +115,13 @@ $u = (isset($_REQUEST['u']))?$_REQUEST['u']:"";
 
         <button type="submit" class="btn-flat col-md-12">Iniciar sesión</button>
         <br>
+<<<<<<< HEAD
 
     <br>
         <p class="text-center" ><a href="Login-Tienda">Login para tiendas</a> </p>
+=======
+        <p class="text-center" ><a href="/shoppingapp/Login-Tienda/">Login for Shops</a> </p>
+>>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
     </form>
 
     </div>

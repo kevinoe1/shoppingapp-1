@@ -1,7 +1,6 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
-include '../global/config.php';
 include '../global/conexion.php';
 include '../global/const.php';
 
@@ -9,6 +8,7 @@ session_start();
 
 require ('../scripts/comprobaciones.php');
 
+<<<<<<< HEAD
 $consulta_tipo_usuario = $pdo->prepare("SELECT * FROM Usuarios
 										WHERE PK_Usuario = :PK_Usuario;");
 $consulta_tipo_usuario->bindParam(':PK_Usuario', $_SESSION['login_user']);
@@ -51,15 +51,50 @@ if($usuario[0]['FK_TipoUsuario'] == 2){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="<?php echo URL_SITIO ?>static/js/jquery-3.5.0.min.js" ></script>
 	<?php include 'iconos.php' ?>
+=======
+	$sentenc = $pdo->prepare("SELECT PK_Pais,NombrePais,logo from paises Order by NombrePais asc");
+	$sentenc->execute();
+	$listaPaises = $sentenc->fetchAll(PDO::FETCH_ASSOC);
+>>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
  
-</head>
-<body>
+?> 
 
-<?php include '../templates/header.php'; ?>
+<?php include 'header.php'; ?>
 
-<!-- DIV temporal -->
-<div style="padding:50px 20px 50px 20px;" class="text-center ">
+<div class="container">
+	<div class="row">
 
+		<?php foreach ($listaPaises as $pais){?>
+                                                 
+            <div  class="col-xl-3 col-sm-6 mb-4 ">
+                <div id="new" class="card text-white bg-muted o-hidden h-100">
+                    <div class="card-body">
+                    	<div class="card-body-icon">
+                        	<img src="/shoppingapp/uploads/img/paises/<?php echo $pais["logo"] ?>" alt="<?php echo $pais["NombrePais"] ?>" style="border-radius: 7px;">
+                      	</div>
+                      	<div class="mr-5 text-center">
+	                        <br>
+	                        <br>
+	                        <br>
+                      	</div>  
+                    </div>
+                    <a class="card-footer  clearfix small z-1" href="/shoppingapp/Tiendas/?idPais=<?php echo $pais["PK_Pais"] ?>" >
+	                    <span class="float-left" style="font-size: 1rem;">
+	                        Ver las tiendas de <strong><?php echo $pais["NombrePais"] ?></strong>  
+	                    </span>
+	                    <span class="float-right">
+	                        <i class="fas fa-angle-right"></i>
+	                    </span>
+                    </a>
+                </div>
+            </div>
+        <?php } ?> 
+	</div>	
+</div>
+
+
+
+<<<<<<< HEAD
     <div class="container row col-md-12 ">
     <?php foreach($productos as $producto){ ?>
 <div class="col-md-3">
@@ -108,14 +143,17 @@ if($usuario[0]['FK_TipoUsuario'] == 2){
 
 </div> <!-- col // -->
 <?php } ?>
+=======
+>>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
 
 </div> <!-- row.// -->
 </div>
 <!-- FIN DIV Temporal -->
 
 
-<?php include '../templates/footer.php'; ?>
+<?php include 'footer.php'; ?>
 
+<<<<<<< HEAD
 </body>
 </html>
 
@@ -125,3 +163,5 @@ if($usuario[0]['FK_TipoUsuario'] == 2){
 		$('#product_'+pk_producto).submit();
 	}
 </script>
+=======
+>>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
