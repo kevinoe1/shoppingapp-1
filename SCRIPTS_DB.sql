@@ -1,9 +1,17 @@
+
+
+ -- DROP DATABASE shoppingapp;
+
+ -- CREATE DATABASE shoppingapp;
+
+-- Use shoppingapp;
+
 -- phpMyAdmin SQL Dump
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:8889
--- Tiempo de generación: 29-04-2020 a las 15:27:27
+-- Tiempo de generación: 17-05-2020 a las 19:35:06
 -- Versión del servidor: 5.7.23
 -- Versión de PHP: 7.2.10
 
@@ -33,18 +41,6 @@ CREATE TABLE `Carrito` (
   `FK_Destinatario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Volcado de datos para la tabla `Carrito`
---
-
-INSERT INTO `Carrito` (`PK_Carrito`, `Cantidad`, `FK_Producto`, `FK_Pedido`, `FK_Talla`, `FK_Color`, `FK_Cliente`, `FechaHoraAgregado`, `FK_TipoPedido`, `FK_Destinatario`) VALUES
-(11, 1, 2, NULL, 1, 1, 1, '2020-04-28 21:36:50', 2, 1),
-(12, 2, 2, NULL, 1, 1, 1, '2020-04-28 21:38:05', 2, 1),
-(13, 1, 2, NULL, 1, 1, 1, '2020-04-29 14:40:40', 2, 1),
-(14, 1, 2, NULL, 1, 1, 1, '2020-04-29 15:14:14', 1, NULL),
-(15, 1, 2, NULL, 1, 1, 1, '2020-04-29 15:17:48', 1, NULL),
-(16, 1, 3, NULL, NULL, NULL, 1, '2020-04-29 15:22:24', 1, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -64,7 +60,9 @@ CREATE TABLE `Categorias` (
 --
 
 INSERT INTO `Categorias` (`PK_Categoria`, `NombreCategoria`, `Descripcion`, `Imagen`, `Estado`) VALUES
-(1, 'Calzado', 'Zapatos y sandalias', '', 1);
+(1, 'Calzado', 'Calzado general', 'Calzado_1588609660_Logo_ShoppingApp.png', 1),
+(2, 'test', 'categoría de prueba', 'test_1588614457_Logo_ShoppingApp.png', 0),
+(4, 'car', 'categoría de prueb', 'ijoijoij_1588550405_Logo_shoppingapp_v2.png', 0);
 
 -- --------------------------------------------------------
 
@@ -113,7 +111,8 @@ CREATE TABLE `Clientes` (
 --
 
 INSERT INTO `Clientes` (`PK_Cliente`, `FK_Usuario`, `PrimerNombre`, `SegundoNombre`, `PrimerApellido`, `SegundoApellido`, `Direccion1`, `Direccion2`, `Telefono`, `FK_Ciudad`) VALUES
-(1, 3, 'Kevin', '', 'canales', '', 'njk', 'njk', '789', 1);
+(1, 3, 'Juan', '', 'Perez', '', 'barrio la cruz', 'calle del registro', '23443344', 5),
+(5, 18, 'administrador', '', 'del sitio', '', 'N/A', '', '23443243', 2);
 
 -- --------------------------------------------------------
 
@@ -168,16 +167,54 @@ INSERT INTO `Destinatarios` (`PK_Destinatario`, `NombresDestinatario`, `Apellido
 
 CREATE TABLE `DetallePedidos` (
   `PK_DetallePedido` int(11) NOT NULL,
-  `Precio` double DEFAULT NULL,
   `Cantidad` double DEFAULT NULL,
-  `Descuento` double DEFAULT NULL,
-  `Total` double DEFAULT NULL,
   `FK_Producto` int(11) NOT NULL,
-  `FK_Pedido` int(11) NOT NULL,
+  `FK_Pedido` int(11) DEFAULT NULL,
   `FK_Talla` int(11) DEFAULT NULL,
   `FK_Color` int(11) DEFAULT NULL,
-  `FK_TipoPedido` int(11) DEFAULT NULL
+  `FK_Cliente` int(11) DEFAULT NULL,
+  `FechaHoraAgregado` datetime DEFAULT NULL,
+  `FK_TipoPedido` int(11) DEFAULT NULL,
+  `FK_Destinatario` int(11) DEFAULT NULL,
+  `Estado` tinyint(4) DEFAULT NULL,
+  `FechaHoraCompletado` date DEFAULT NULL,
+  `Valoracion` int(11) DEFAULT '0',
+  `CodigoDetallePedido` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `DetallePedidos`
+--
+
+INSERT INTO `DetallePedidos` (`PK_DetallePedido`, `Cantidad`, `FK_Producto`, `FK_Pedido`, `FK_Talla`, `FK_Color`, `FK_Cliente`, `FechaHoraAgregado`, `FK_TipoPedido`, `FK_Destinatario`, `Estado`, `FechaHoraCompletado`, `Valoracion`, `CodigoDetallePedido`) VALUES
+(26, 1, 2, 7, 1, 1, 1, '2020-05-03 02:02:17', 1, NULL, 1, NULL, 1, NULL),
+(27, 1, 3, 7, NULL, NULL, 1, '2020-05-03 02:02:17', 1, NULL, 0, NULL, 0, NULL),
+(28, 1, 2, 8, 1, 1, 1, '2020-05-03 02:04:56', 2, NULL, 1, '2020-08-05', 1, NULL),
+(29, 1, 3, 9, NULL, NULL, 1, '2020-05-03 02:37:01', 1, NULL, 0, NULL, 0, NULL),
+(30, 2, 2, 10, 1, 1, 1, '2020-05-03 14:57:10', 2, NULL, 0, NULL, 0, NULL),
+(31, 1, 3, 10, NULL, NULL, 1, '2020-05-03 14:57:10', 1, NULL, 0, NULL, 0, NULL),
+(32, 1, 2, 11, 1, 1, 1, '2020-05-03 15:00:34', 2, NULL, 0, NULL, 0, NULL),
+(33, 1, 2, 12, 1, 1, 1, '2020-05-07 16:16:51', 1, NULL, 0, NULL, 0, NULL),
+(34, 2, 2, 13, 1, 1, 1, '2020-05-07 22:01:56', 2, NULL, 1, '2020-05-17', 0, NULL),
+(35, 1, 2, 14, 1, 1, 1, '2020-05-07 22:07:08', 2, 2, 1, NULL, 2, NULL),
+(36, 1, 2, 15, 1, 1, 1, '2020-05-12 22:05:06', 1, NULL, 0, NULL, 0, NULL),
+(37, 1, 2, 16, 1, 1, 1, '2020-05-12 22:14:24', 1, NULL, 0, NULL, 0, NULL),
+(38, 1, 2, 17, 1, 1, 1, '2020-05-12 22:24:38', 1, NULL, 0, NULL, 0, NULL),
+(39, 1, 3, 18, NULL, NULL, 1, '2020-05-12 22:50:24', 1, NULL, 0, NULL, 0, NULL),
+(40, 1, 3, 19, NULL, NULL, 1, '2020-05-12 22:51:57', 1, NULL, 0, NULL, 0, NULL),
+(41, 1, 3, 20, NULL, NULL, 1, '2020-05-12 22:53:44', 1, NULL, 0, NULL, 0, NULL),
+(42, 1, 2, 21, 1, 1, 1, '2020-05-12 22:55:11', 1, NULL, 0, NULL, 0, NULL),
+(43, 1, 2, 22, 1, 1, 1, '2020-05-12 22:57:11', 1, NULL, 0, NULL, 0, NULL),
+(44, 1, 2, 23, 1, 1, 1, '2020-05-13 14:41:38', 1, NULL, 0, NULL, 0, NULL),
+(45, 1, 2, 24, 1, 1, 1, '2020-05-13 14:45:07', 1, NULL, 1, '2020-05-13', 0, 'P2H070514A2020D0513'),
+(46, 1, 2, 26, 1, 1, 1, '2020-05-13 14:47:35', 1, NULL, 1, '2020-05-13', 0, 'P3-2H350514A2020D0513'),
+(47, 1, 2, 27, 1, 1, 1, '2020-05-13 15:20:08', 1, NULL, 0, NULL, 0, 'P3-20805152005130064\n'),
+(48, 1, 2, 28, 1, 1, 1, '2020-05-13 15:27:33', 1, NULL, 0, NULL, 0, 'P3-2330515Y20D05132000\n'),
+(49, 1, 2, 28, 1, 1, 1, '2020-05-13 15:27:33', 1, NULL, 0, NULL, 0, 'P3-2330515Y20D05132144\n'),
+(50, 1, 3, 28, NULL, NULL, 1, '2020-05-13 15:27:33', 1, NULL, 0, NULL, 0, 'P3-3330515Y20D05133888\n'),
+(51, 1, 2, 29, 1, 1, 1, '2020-05-17 16:04:58', 1, NULL, 0, NULL, 0, 'P3-2580516Y20D05179104\n'),
+(52, 1, 3, 29, NULL, NULL, 1, '2020-05-17 16:04:58', 1, NULL, 0, NULL, 0, 'P3-3580516Y20D05179152\n'),
+(53, 1, 2, 30, 1, 1, 1, '2020-05-17 16:24:26', 1, NULL, 0, NULL, 0, 'P3-2260516Y20D05177120\n');
 
 -- --------------------------------------------------------
 
@@ -235,6 +272,51 @@ CREATE TABLE `LogUsuarios` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `Pago_solouno_temp`
+--
+
+CREATE TABLE `Pago_solouno_temp` (
+  `PK_Pago` varchar(50) NOT NULL,
+  `Cantidad` double DEFAULT NULL,
+  `FK_Producto` int(11) NOT NULL,
+  `FK_Pedido` int(11) DEFAULT NULL,
+  `FK_Talla` int(11) DEFAULT NULL,
+  `FK_Color` int(11) DEFAULT NULL,
+  `FK_Cliente` int(11) DEFAULT NULL,
+  `FechaHoraAgregado` datetime DEFAULT NULL,
+  `FK_TipoPedido` int(11) DEFAULT NULL,
+  `FK_Destinatario` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `Pago_solouno_temp`
+--
+
+INSERT INTO `Pago_solouno_temp` (`PK_Pago`, `Cantidad`, `FK_Producto`, `FK_Pedido`, `FK_Talla`, `FK_Color`, `FK_Cliente`, `FechaHoraAgregado`, `FK_TipoPedido`, `FK_Destinatario`) VALUES
+('1_2020-04-30_17:24:26_2', 1, 2, NULL, 1, 1, 1, '2020-04-30 17:24:26', 1, NULL),
+('1_2020-04-30_17:25:41_2', 1, 2, NULL, 1, 1, 1, '2020-04-30 17:25:41', 1, NULL),
+('1_2020-04-30_17:32:36_2', 1, 2, NULL, 1, 1, 1, '2020-04-30 17:32:36', 1, NULL),
+('1_2020-04-30_19:08:24_2', 2, 2, NULL, 1, 1, 1, '2020-04-30 19:08:24', 1, NULL),
+('1_2020-05-01_02:20:15_2', 1, 2, NULL, 1, 1, 1, '2020-05-01 02:20:15', 1, NULL),
+('1_2020-05-01_03:03:59_2', 1, 2, NULL, 1, 1, 1, '2020-05-01 03:03:59', 1, NULL),
+('1_2020-05-01_14:34:46_2', 1, 2, NULL, 1, 1, 1, '2020-05-01 14:34:46', 1, NULL),
+('1_2020-05-01_19:25:14_2', 1, 2, NULL, 1, 1, 1, '2020-05-01 19:25:14', 1, NULL),
+('1_2020-05-01_19:53:17_2', 1, 2, NULL, 1, 1, 1, '2020-05-01 19:53:17', 1, NULL),
+('1_2020-05-02_15:05:30_2', 1, 2, NULL, 1, 1, 1, '2020-05-02 15:05:30', 1, NULL),
+('1_2020-05-02_15:23:14_2', 1, 2, NULL, 1, 1, 1, '2020-05-02 15:23:14', 1, NULL),
+('1_2020-05-07_15:38:23_2', 1, 2, NULL, 1, 1, 1, '2020-05-07 15:38:23', 1, NULL),
+('1_2020-05-07_19:51:46_2', 2, 2, NULL, 1, 1, 1, '2020-05-07 19:51:46', 2, 1),
+('1_2020-05-07_21:50:22_2', 2, 2, NULL, 1, 1, 1, '2020-05-07 21:50:22', 2, 1),
+('1_2020-05-14_17:32:39_2', 1, 2, NULL, 1, 1, 1, '2020-05-14 17:32:39', 1, NULL),
+('1_2020-05-17_15:29:52_2', 1, 2, NULL, 1, 1, 1, '2020-05-17 15:29:52', 1, NULL),
+('1_2020-05-17_15:30:25_2', 1, 2, NULL, 1, 1, 1, '2020-05-17 15:30:25', 1, NULL),
+('1_2020-05-17_16:05:26_2', 1, 2, NULL, 1, 1, 1, '2020-05-17 16:05:26', 1, NULL),
+('1_2020-05-17_16:22:09_3', 1, 3, NULL, NULL, NULL, 1, '2020-05-17 16:22:09', 1, NULL),
+('1_2020-05-17_18:19:19_4', 1, 4, NULL, NULL, NULL, 1, '2020-05-17 18:19:19', 1, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `Paises`
 --
 
@@ -261,16 +343,43 @@ CREATE TABLE `Pedidos` (
   `PK_Pedido` int(11) NOT NULL,
   `FK_Cliente` int(11) NOT NULL,
   `FK_Tienda` int(11) NOT NULL,
-  `NumeroPedido` varchar(20) DEFAULT NULL,
+  `NumeroPedido` varchar(200) DEFAULT NULL,
   `FechaHoraOrden` datetime DEFAULT NULL,
   `FechaHoraCompra` datetime DEFAULT NULL,
   `FechaHoraEnvio` datetime DEFAULT NULL,
   `FechaHoraEntrega` datetime DEFAULT NULL,
-  `PesoPedido` double DEFAULT NULL,
-  `Estado` tinyint(1) DEFAULT NULL,
-  `FK_Destinatario` int(11) DEFAULT NULL,
-  `FK_TipoPedido` int(11) NOT NULL
+  `Estado` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `Pedidos`
+--
+
+INSERT INTO `Pedidos` (`PK_Pedido`, `FK_Cliente`, `FK_Tienda`, `NumeroPedido`, `FechaHoraOrden`, `FechaHoraCompra`, `FechaHoraEnvio`, `FechaHoraEntrega`, `Estado`) VALUES
+(7, 1, 1, 'PAYID-L2XCMFA3S6282772C248352S', '2020-05-03 02:02:17', '2020-05-03 02:02:17', NULL, NULL, 1),
+(8, 1, 1, 'PAYID-L2XCM7Q5VX89952HE740311V', '2020-05-03 02:04:56', '2020-05-03 02:04:56', NULL, NULL, 1),
+(9, 1, 1, 'PAYID-L2XC2GQ1H178847W3513540Y', '2020-05-03 02:37:01', '2020-05-03 02:37:01', NULL, NULL, 1),
+(10, 1, 1, 'PAYID-L2XNXHY4BR83753SR5400506', '2020-05-03 14:57:10', '2020-05-03 14:57:10', NULL, NULL, 1),
+(11, 1, 1, 'PAYID-L2XNZAI2LE35200KW186660C', '2020-05-03 15:00:34', '2020-05-03 15:00:34', NULL, NULL, 1),
+(12, 1, 1, 'PAYID-L22DIYQ3UE34712GU963902U', '2020-05-07 16:16:51', '2020-05-07 16:16:51', NULL, NULL, 1),
+(13, 1, 1, 'PAYID-L22IKKA9XN64722VD705471C', '2020-05-07 22:01:56', '2020-05-07 22:01:56', NULL, NULL, 0),
+(14, 1, 1, 'PAYID-L22IM6I25N86130EK635894N', '2020-05-07 22:07:08', '2020-05-07 22:07:08', NULL, NULL, 0),
+(15, 1, 1, 'PAYID-L25RYYQ29R99123DL6144308', '2020-05-12 22:05:06', '2020-05-12 22:05:06', NULL, NULL, 0),
+(16, 1, 1, 'PAYID-L25R7IA3XY74072AN7802930', '2020-05-12 22:14:24', '2020-05-12 22:14:24', NULL, NULL, 0),
+(17, 1, 1, 'PAYID-L25SD7Y9YD66164BR334604T', '2020-05-12 22:24:38', '2020-05-12 22:24:38', NULL, NULL, 0),
+(18, 1, 1, 'PAYID-L25SQHI3GU83737NV871951K', '2020-05-12 22:50:24', '2020-05-12 22:50:24', NULL, NULL, 0),
+(19, 1, 1, 'PAYID-L25SQ7Y3NU89630E57022122', '2020-05-12 22:51:57', '2020-05-12 22:51:57', NULL, NULL, 0),
+(20, 1, 1, 'PAYID-L25SRYA0WX84252H01250212', '2020-05-12 22:53:44', '2020-05-12 22:53:44', NULL, NULL, 0),
+(21, 1, 1, 'PAYID-L25SSQI7MJ95452K7222134N', '2020-05-12 22:55:11', '2020-05-12 22:55:11', NULL, NULL, 0),
+(22, 1, 1, 'PAYID-L25STNQ8VH78852SV420194V', '2020-05-12 22:57:11', '2020-05-12 22:57:11', NULL, NULL, 0),
+(23, 1, 1, 'PAYID-L26AN5A3MM67880KK359871E', '2020-05-13 14:41:38', '2020-05-13 14:41:38', NULL, NULL, 0),
+(24, 1, 1, 'PAYID-L26APFI72S255473W203134B', '2020-05-13 14:43:49', '2020-05-13 14:43:49', NULL, NULL, 0),
+(25, 1, 1, 'PAYID-L26APFI72S255473W203134B', '2020-05-13 14:45:07', '2020-05-13 14:45:07', NULL, NULL, 0),
+(26, 1, 1, 'PAYID-L26AQ6A02763280ML0051714', '2020-05-13 14:47:35', '2020-05-13 14:47:35', NULL, NULL, 0),
+(27, 1, 1, 'PAYID-L26BAEQ3A6343579U690740R', '2020-05-13 15:20:08', '2020-05-13 15:20:08', NULL, NULL, 0),
+(28, 1, 1, 'PAYID-L26BDVI8270803464450010R', '2020-05-13 15:27:33', '2020-05-13 15:27:33', NULL, NULL, 0),
+(29, 1, 1, 'PAYID-L3AWAOQ5MR238953H2208933', '2020-05-17 16:04:58', '2020-05-17 16:04:58', NULL, NULL, 0),
+(30, 1, 1, 'PAYID-L3AWKJA1JT84973MV432202P', '2020-05-17 16:24:26', '2020-05-17 16:24:26', NULL, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -302,8 +411,10 @@ CREATE TABLE `Productos` (
 --
 
 INSERT INTO `Productos` (`PK_Producto`, `NombreProducto`, `Descripcion`, `CantidadPorUnidad`, `PrecioUnitario`, `PrecioEnvio`, `Descuento`, `UnidadesDisponibles`, `UnidadesVendidas`, `Estado`, `Imagen`, `Ranking`, `Nota`, `FK_Tienda`, `FK_Categoria`, `Adomicilio`) VALUES
-(2, 'Sandalias de colores', '\r\nManufacturer Model: CoDrone\r\nFun and educational drone\r\nPerfect for beginners learning programming\r\nArduino Compatible controller\r\nUse your Apple or Android smart phone to fly, battle, voice control CoDrone\r\nEasily removable/replaceable motors\r\nDescription\r\nLearning to code is fast and simple with CoDrone, a fully programmable drone. Simply unbox your CoDrone, watch our tutorials, and start coding within minutes. Then watch your code take flight! Start from introductory basics to gaining hands-on experience with real world programming for hardware.\r\n\r\n', 1, 50, 5, 10, 250, 50, 1, 'uploads/img/productos/product.jpg', 3.5, 'Nuevas', 1, 1, 1),
-(3, 'Producto de prueba', 'Esta es una descripción de prueba', 1, 10, NULL, NULL, 12, 1, 1, 'uploads/img/productos/product2.jpg', 5, 'nada', 1, 1, 0);
+(2, 'Sandalias de colores', '\r\nManufacturer Model: CoDrone\r\nFun and educational drone\r\nPerfect for beginners learning programming\r\nArduino Compatible controller\r\nUse your Apple or Android smart phone to fly, battle, voice control CoDrone\r\nEasily removable/replaceable motors\r\nDescription\r\nLearning to code is fast and simple with CoDrone, a fully programmable drone. Simply unbox your CoDrone, watch our tutorials, and start coding within minutes. Then watch your code take flight! Start from introductory basics to gaining hands-on experience with real world programming for hardware.\r\n\r\n', 1, 2, 1, 10, 229, 56, 1, 'uploads/img/productos/product.jpg', 1, 'Nuevas', 1, 1, 1),
+(3, 'Producto de prueba', 'Esta es una descripción de prueba', 1, 10, NULL, NULL, 5, 1, 1, 'uploads/img/productos/product2.jpg', NULL, 'nada', 1, 1, 0),
+(4, 'Robolink CoDrone Pro programables', 'Robolink CoDrone Pro programables', 1, 200, 10, 10, 300, 3, 1, 'uploads/img/productos/dron.jpg', 2, NULL, 1, 4, 1),
+(6, 'Camiseta De Manga Larga Calavera ', 'Camiseta De Manga Larga Calavera ', 1, 20, 2, NULL, 20, 1, 1, 'uploads/img/productos/camisa.jpg', 4, NULL, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -312,18 +423,19 @@ INSERT INTO `Productos` (`PK_Producto`, `NombreProducto`, `Descripcion`, `Cantid
 --
 
 CREATE TABLE `RegionesEnvio` (
+  `PK_RegionEnvio` int(11) NOT NULL,
   `FK_Ciudad` int(11) NOT NULL,
-  `FK_Tienda` int(11) NOT NULL
+  `FK_Tienda` int(11) NOT NULL,
+  `PrecioEnvio` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `RegionesEnvio`
 --
 
-INSERT INTO `RegionesEnvio` (`FK_Ciudad`, `FK_Tienda`) VALUES
-(1, 1),
-(2, 1),
-(5, 1);
+INSERT INTO `RegionesEnvio` (`PK_RegionEnvio`, `FK_Ciudad`, `FK_Tienda`, `PrecioEnvio`) VALUES
+(4, 1, 1, 3),
+(5, 4, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -346,6 +458,17 @@ INSERT INTO `Tallas` (`PK_Talla`, `Talla`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `Temp`
+--
+
+CREATE TABLE `Temp` (
+  `PK` int(11) NOT NULL,
+  `Datos` varchar(1000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `Tiendas`
 --
 
@@ -358,7 +481,7 @@ CREATE TABLE `Tiendas` (
   `Direccion2` varchar(200) DEFAULT NULL,
   `SitioWeb` varchar(100) DEFAULT NULL,
   `Correo` varchar(80) DEFAULT NULL,
-  `CorreoPaypal` varchar(80) DEFAULT NULL,
+  `IDClientePaypal` varchar(200) DEFAULT NULL,
   `Logo` varchar(200) DEFAULT NULL,
   `Adomicilio` tinyint(4) DEFAULT NULL,
   `FK_Ciudad` int(11) NOT NULL,
@@ -371,8 +494,11 @@ CREATE TABLE `Tiendas` (
 -- Volcado de datos para la tabla `Tiendas`
 --
 
-INSERT INTO `Tiendas` (`PK_Tienda`, `NombreTienda`, `NombreContacto`, `ApellidoContacto`, `Direccion1`, `Direccion2`, `SitioWeb`, `Correo`, `CorreoPaypal`, `Logo`, `Adomicilio`, `FK_Ciudad`, `FK_Usuario`, `Telefono`, `Portada`) VALUES
-(1, 'mitienda', 'kevin', 'canales', '2fre', 'erf', '', 'noe@noe.com', 'noe@bus.com', 'tienda_2_logo.jpg', 1, 1, 2, '234', 'tienda_2_portada.jpg');
+INSERT INTO `Tiendas` (`PK_Tienda`, `NombreTienda`, `NombreContacto`, `ApellidoContacto`, `Direccion1`, `Direccion2`, `SitioWeb`, `Correo`, `IDClientePaypal`, `Logo`, `Adomicilio`, `FK_Ciudad`, `FK_Usuario`, `Telefono`, `Portada`) VALUES
+(1, 'Mi Tienda', 'kevin ', 'canales TEMP', '2fre TEMP', 'erf TEMP', 'TEMP', 'noe@noe.com', 'AfD5UDBgvoCWjA2v1oEmxVJgBUqDo_bSB6ywQcs71MG6NTe64DTomwuf9Obw35BgjsmPsZQM_hUPMPk_', 'tienda_2_logo.jpg', NULL, 4, 2, '234444', 'tienda_2_portada.jpg'),
+(4, 'Tienda de prueba', 'Noe', 'Montoya', 'dire', 'dire 2', '', 'test@test.com', 'AfD5UDBgvoCWjA2v1oEmxVJgBUqDo_bSB6ywQcs71MG6NTe64DTomwuf9Obw35BgjsmPsZQM_hUPMPk', 'tienda_8_logo.jpg', 1, 1, 8, '345', 'tienda_8_portada.jpg'),
+(7, 'tienda_test', 'kevin', 'canales', 'feriofjerf', 'erferferfref', '', 'noe_k@outlook.com', 'AfD5UDBgvoCWjA2v1oEmxVJgBUqDo_bSB6ywQcs71MG6NTe64DTomwuf9Obw35BgjsmPsZQM_hUPMPk_', 'tienda_14_20200515224038.jpg', NULL, 1, 14, '3455345', 'tienda_14_20200515221833.jpg'),
+(8, 'tiendaprueba', 'kecin', 'cre', 'ferferf', 'erfer', '', 'noe_k@ymail.com', 'AfD5UDBgvoCWjA2v1oEmxVJgBUqDo_bSB6ywQcs71MG6NTe64DTomwuf9Obw35BgjsmPsZQM_hUPMPk_', 'tienda_17_20200517145706.jpg', NULL, 2, 17, '234234234', 'tienda_17_20200517145754.jpg');
 
 -- --------------------------------------------------------
 
@@ -449,17 +575,25 @@ CREATE TABLE `Usuarios` (
   `Estado` tinyint(1) DEFAULT NULL,
   `FK_TipoUsuario` int(11) NOT NULL,
   `FK_Idioma` int(11) NOT NULL,
-  `Foto` varchar(100) DEFAULT NULL
+  `Foto` varchar(100) DEFAULT NULL,
+  `CodigoConfirmacion` varchar(100) DEFAULT NULL,
+  `EstadoCorreo` tinyint(4) NOT NULL DEFAULT '0',
+  `CodRestContrasena` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `Usuarios`
 --
 
-INSERT INTO `Usuarios` (`PK_Usuario`, `NombreUsuario`, `Contrasena`, `Correo`, `Estado`, `FK_TipoUsuario`, `FK_Idioma`, `Foto`) VALUES
-(1, 'kevine1', 'hola1234', 'noe@noe', 1, 1, 1, NULL),
-(2, 'noe@noe.com', 'hola', 'noe@noe.com', 1, 2, 1, 'tienda_2_logo.jpg'),
-(3, 'kevin', 'hola1234', 'kevin@kevin.com', 1, 1, 1, 'user_3_foto_perfil.jpg');
+INSERT INTO `Usuarios` (`PK_Usuario`, `NombreUsuario`, `Contrasena`, `Correo`, `Estado`, `FK_TipoUsuario`, `FK_Idioma`, `Foto`, `CodigoConfirmacion`, `EstadoCorreo`, `CodRestContrasena`) VALUES
+(1, 'kevine1', 'hola1234', 'noe@noe', 1, 1, 1, NULL, NULL, 1, NULL),
+(2, 'noe@noe.com', 'hola1234', 'noe@noe.com TEMP', 1, 2, 2, 'tienda_2_logo.jpg', NULL, 1, NULL),
+(3, 'cliente1', 'hola1234', 'cliente@cliente.com', 1, 1, 1, 'user_3_20200517182451.jpg', NULL, 1, 'U3C153115d20200514'),
+(8, 'test@test.com', 'hola1234', 'test@test.com', 1, 2, 1, 'tienda_8_logo.jpg', NULL, 0, NULL),
+(10, 'ken', 'hola1234', 'kncm.js@gmail.com', 1, 1, 1, 'user_10_foto_perfil.jpg', 'C185817d20200509', 1, 'U10C163425d20200514'),
+(14, 'noe_k@outlook.com', 'holahola', 'noe_k@outlook.com', 1, 2, 1, 'tienda_14_20200515224038.jpg', 'C012224d20200510', 1, 'U14C221131d20200516'),
+(17, 'noe_k@ymail.com', 'hola1234', 'noe_k@ymail.com', 1, 2, 1, 'tienda_17_20200517145706.jpg', 'C005702d20200517', 1, NULL),
+(18, 'admin', 'admin1234', 'shoppingappworld@gmail.com', 1, 3, 1, 'user_18_foto_perfil.jpg', 'C171806d20200517', 1, NULL);
 
 --
 -- Índices para tablas volcadas
@@ -521,8 +655,10 @@ ALTER TABLE `DetallePedidos`
   ADD KEY `FK_Producto` (`FK_Producto`),
   ADD KEY `FK_Pedido` (`FK_Pedido`),
   ADD KEY `FK_Talla` (`FK_Talla`),
-  ADD KEY `detallepedidos_ibfk_4` (`FK_Color`),
-  ADD KEY `detallepedidos_ibfk_5` (`FK_TipoPedido`);
+  ADD KEY `FK_Color` (`FK_Color`),
+  ADD KEY `carrito_ibfk_3` (`FK_Cliente`),
+  ADD KEY `carrito_ibfk_4` (`FK_TipoPedido`),
+  ADD KEY `carrito_ibfk_5` (`FK_Destinatario`);
 
 --
 -- Indices de la tabla `DetalleProducto`
@@ -547,6 +683,19 @@ ALTER TABLE `LogUsuarios`
   ADD KEY `FK_Usuario` (`FK_Usuario`);
 
 --
+-- Indices de la tabla `Pago_solouno_temp`
+--
+ALTER TABLE `Pago_solouno_temp`
+  ADD PRIMARY KEY (`PK_Pago`),
+  ADD KEY `FK_Producto` (`FK_Producto`),
+  ADD KEY `FK_Pedido` (`FK_Pedido`),
+  ADD KEY `FK_Talla` (`FK_Talla`),
+  ADD KEY `FK_Color` (`FK_Color`),
+  ADD KEY `carrito_ibfk_3` (`FK_Cliente`),
+  ADD KEY `carrito_ibfk_4` (`FK_TipoPedido`),
+  ADD KEY `carrito_ibfk_5` (`FK_Destinatario`);
+
+--
 -- Indices de la tabla `Paises`
 --
 ALTER TABLE `Paises`
@@ -557,8 +706,6 @@ ALTER TABLE `Paises`
 --
 ALTER TABLE `Pedidos`
   ADD PRIMARY KEY (`PK_Pedido`),
-  ADD KEY `FK_Destinatario` (`FK_Destinatario`),
-  ADD KEY `FK_TipoPedido` (`FK_TipoPedido`),
   ADD KEY `FK_Cliente` (`FK_Cliente`),
   ADD KEY `FK_Tienda` (`FK_Tienda`);
 
@@ -576,14 +723,21 @@ ALTER TABLE `Productos` ADD FULLTEXT KEY `Descripcion_2` (`Descripcion`);
 -- Indices de la tabla `RegionesEnvio`
 --
 ALTER TABLE `RegionesEnvio`
-  ADD PRIMARY KEY (`FK_Ciudad`,`FK_Tienda`),
-  ADD KEY `FK_Tienda` (`FK_Tienda`);
+  ADD PRIMARY KEY (`PK_RegionEnvio`),
+  ADD KEY `regionesenvio_ibfk_1` (`FK_Ciudad`),
+  ADD KEY `regionesenvio_ibfk_2` (`FK_Tienda`);
 
 --
 -- Indices de la tabla `Tallas`
 --
 ALTER TABLE `Tallas`
   ADD PRIMARY KEY (`PK_Talla`);
+
+--
+-- Indices de la tabla `Temp`
+--
+ALTER TABLE `Temp`
+  ADD PRIMARY KEY (`PK`);
 
 --
 -- Indices de la tabla `Tiendas`
@@ -635,13 +789,13 @@ ALTER TABLE `Usuarios`
 -- AUTO_INCREMENT de la tabla `Carrito`
 --
 ALTER TABLE `Carrito`
-  MODIFY `PK_Carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `PK_Carrito` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de la tabla `Categorias`
 --
 ALTER TABLE `Categorias`
-  MODIFY `PK_Categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PK_Categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `Ciudades`
@@ -653,7 +807,7 @@ ALTER TABLE `Ciudades`
 -- AUTO_INCREMENT de la tabla `Clientes`
 --
 ALTER TABLE `Clientes`
-  MODIFY `PK_Cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PK_Cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `Colores`
@@ -671,7 +825,7 @@ ALTER TABLE `Destinatarios`
 -- AUTO_INCREMENT de la tabla `DetallePedidos`
 --
 ALTER TABLE `DetallePedidos`
-  MODIFY `PK_DetallePedido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PK_DetallePedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de la tabla `DetalleProducto`
@@ -701,13 +855,19 @@ ALTER TABLE `Paises`
 -- AUTO_INCREMENT de la tabla `Pedidos`
 --
 ALTER TABLE `Pedidos`
-  MODIFY `PK_Pedido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PK_Pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `Productos`
 --
 ALTER TABLE `Productos`
-  MODIFY `PK_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `PK_Producto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de la tabla `RegionesEnvio`
+--
+ALTER TABLE `RegionesEnvio`
+  MODIFY `PK_RegionEnvio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `Tallas`
@@ -716,10 +876,16 @@ ALTER TABLE `Tallas`
   MODIFY `PK_Talla` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `Temp`
+--
+ALTER TABLE `Temp`
+  MODIFY `PK` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `Tiendas`
 --
 ALTER TABLE `Tiendas`
-  MODIFY `PK_Tienda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PK_Tienda` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `TiposPago`
@@ -743,7 +909,7 @@ ALTER TABLE `TipoUsuario`
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
-  MODIFY `PK_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `PK_Usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Restricciones para tablas volcadas
@@ -785,11 +951,13 @@ ALTER TABLE `Destinatarios`
 -- Filtros para la tabla `DetallePedidos`
 --
 ALTER TABLE `DetallePedidos`
-  ADD CONSTRAINT `detallepedidos_ibfk_1` FOREIGN KEY (`FK_Producto`) REFERENCES `Productos` (`PK_Producto`),
-  ADD CONSTRAINT `detallepedidos_ibfk_2` FOREIGN KEY (`FK_Pedido`) REFERENCES `Pedidos` (`PK_Pedido`),
-  ADD CONSTRAINT `detallepedidos_ibfk_3` FOREIGN KEY (`FK_Talla`) REFERENCES `Tallas` (`PK_Talla`),
-  ADD CONSTRAINT `detallepedidos_ibfk_4` FOREIGN KEY (`FK_Color`) REFERENCES `Colores` (`PK_Color`),
-  ADD CONSTRAINT `detallepedidos_ibfk_5` FOREIGN KEY (`FK_TipoPedido`) REFERENCES `TiposPedido` (`PK_TipoPedido`);
+  ADD CONSTRAINT `detallepedidos_ibfk_1` FOREIGN KEY (`FK_Color`) REFERENCES `Colores` (`PK_Color`),
+  ADD CONSTRAINT `detallepedidos_ibfk_2` FOREIGN KEY (`FK_Talla`) REFERENCES `Tallas` (`PK_Talla`),
+  ADD CONSTRAINT `detallepedidos_ibfk_3` FOREIGN KEY (`FK_Producto`) REFERENCES `Productos` (`PK_Producto`),
+  ADD CONSTRAINT `detallepedidos_ibfk_4` FOREIGN KEY (`FK_Pedido`) REFERENCES `Pedidos` (`PK_Pedido`),
+  ADD CONSTRAINT `detallepedidos_ibfk_5` FOREIGN KEY (`FK_Cliente`) REFERENCES `Clientes` (`PK_Cliente`),
+  ADD CONSTRAINT `detallepedidos_ibfk_6` FOREIGN KEY (`FK_TipoPedido`) REFERENCES `TiposPedido` (`PK_TipoPedido`),
+  ADD CONSTRAINT `detallepedidos_ibfk_7` FOREIGN KEY (`FK_Destinatario`) REFERENCES `Destinatarios` (`PK_Destinatario`);
 
 --
 -- Filtros para la tabla `DetalleProducto`
@@ -806,13 +974,23 @@ ALTER TABLE `LogUsuarios`
   ADD CONSTRAINT `logusuarios_ibfk_1` FOREIGN KEY (`FK_Usuario`) REFERENCES `Usuarios` (`PK_Usuario`);
 
 --
+-- Filtros para la tabla `Pago_solouno_temp`
+--
+ALTER TABLE `Pago_solouno_temp`
+  ADD CONSTRAINT `Pago_solouno_temp_ibfk_1` FOREIGN KEY (`FK_Color`) REFERENCES `Colores` (`PK_Color`),
+  ADD CONSTRAINT `Pago_solouno_temp_ibfk_2` FOREIGN KEY (`FK_Talla`) REFERENCES `Tallas` (`PK_Talla`),
+  ADD CONSTRAINT `Pago_solouno_temp_ibfk_3` FOREIGN KEY (`FK_Producto`) REFERENCES `Productos` (`PK_Producto`),
+  ADD CONSTRAINT `Pago_solouno_temp_ibfk_4` FOREIGN KEY (`FK_Pedido`) REFERENCES `Pedidos` (`PK_Pedido`),
+  ADD CONSTRAINT `Pago_solouno_temp_ibfk_5` FOREIGN KEY (`FK_Cliente`) REFERENCES `Clientes` (`PK_Cliente`),
+  ADD CONSTRAINT `Pago_solouno_temp_ibfk_6` FOREIGN KEY (`FK_TipoPedido`) REFERENCES `TiposPedido` (`PK_TipoPedido`),
+  ADD CONSTRAINT `Pago_solouno_temp_ibfk_7` FOREIGN KEY (`FK_Destinatario`) REFERENCES `Destinatarios` (`PK_Destinatario`);
+
+--
 -- Filtros para la tabla `Pedidos`
 --
 ALTER TABLE `Pedidos`
-  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`FK_Destinatario`) REFERENCES `Destinatarios` (`PK_Destinatario`),
-  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`FK_TipoPedido`) REFERENCES `Pedidos` (`PK_Pedido`),
-  ADD CONSTRAINT `pedidos_ibfk_3` FOREIGN KEY (`FK_Cliente`) REFERENCES `Clientes` (`PK_Cliente`),
-  ADD CONSTRAINT `pedidos_ibfk_4` FOREIGN KEY (`FK_Tienda`) REFERENCES `Tiendas` (`PK_Tienda`);
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`FK_Cliente`) REFERENCES `Clientes` (`PK_Cliente`),
+  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`FK_Tienda`) REFERENCES `Tiendas` (`PK_Tienda`);
 
 --
 -- Filtros para la tabla `Productos`
