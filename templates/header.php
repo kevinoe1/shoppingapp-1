@@ -1,10 +1,6 @@
 <?php
 
-<<<<<<< HEAD
 
-=======
-include '../global/conexion.php';
->>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
 $buscar_carrito = $pdo->prepare("SELECT * FROM Carrito c INNER JOIN Clientes cli
                                     ON c.FK_Cliente = cli.PK_CLiente INNER JOIN Usuarios u
                                     ON cli.FK_Usuario = u.PK_Usuario 
@@ -22,28 +18,8 @@ $usuario = $buscar_usuario->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Shoppingapp</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link href="../static/css/styles.css" rel="stylesheet" type="text/css" media="all" />
-
-<<<<<<< HEAD
 <link href="<?php echo URL_SITIO ?>static/css/header.css" rel="stylesheet" type="text/css" media="all" />
-=======
-  <script src="https://kit.fontawesome.com/b2dbb6a24d.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
- 
-</head>
-<body>
->>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
 <!-- primer nav -->
 <nav class="navbar navbar-expand-lg navbar-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,11 +29,10 @@ $usuario = $buscar_usuario->fetchAll(PDO::FETCH_ASSOC);
 
   <div class="row collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="row offset-md-2 col-md-10 navbar-nav ml-auto mt-2 mt-lg-0">
-<<<<<<< HEAD
     
     <?php if($usuario[0]['FK_TipoUsuario'] == 1 ){ ?> 
         <li class="col-md-2 offset-md-1 nav-item">
-            <a class="nav-link border-right" href="Home"><i class="fas fa-home mr-2"></i>Inicio</a>
+            <a class="nav-link border-right" href="Inicio"><i class="fas fa-home mr-2"></i>Inicio</a>
           </li>
         <li   class="col-md-2  nav-item">
           <a class="nav-link border-right" href="Pedidos"><i class="fas fa-box mr-2"></i>Pedidos </a>
@@ -75,29 +50,13 @@ $usuario = $buscar_usuario->fetchAll(PDO::FETCH_ASSOC);
         </li>
         <li   class="col-md-2 nav-item">
           <a class="nav-link border-right" href="Registro-Usuario"><i class="fas fa-sign-out-alt mr-2"></i>Registrarse</a>
-=======
-      <li class=" col-md-2 nav-item">
-        <a class="nav-link border-right" href="#"><i class="fas fa-box mr-2"></i>Pedidos </a>
-      </li>
-      <li class="col-md-2 nav-item">
-        <a class="nav-link border-right" href="#"><i class="fas fa-map-marker mr-2"></i>País</a>
-      </li>
-      <li class="col-md-2 nav-item">
-        <a class="nav-link border-right" href="#"><i class="fas fa-phone mr-2"></i>2781 0000</a>
-			</li>
-			<li class="col-md-2 nav-item">
-        <a class="nav-link border-right" href="/shoppingapp/Login/"><i class="fas fa-sign-in-alt mr-2"></i>Log In</a>
-			</li>
-			<li class="col-md-2 nav-item">
-        <a class="nav-link border-right" href="/shoppingapp/Registro-Usuario/"><i class="fas fa-sign-out-alt mr-2"></i>Registrarse</a>
->>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
 			</li>
       <?php }?>
       <?php if($usuario[0]['FK_TipoUsuario'] == 1 || $usuario[0]['FK_TipoUsuario'] == 3 ){ ?>
           <li class="col-md-2 nav-item dropdown ">
       <?php }else if($usuario[0]['FK_TipoUsuario'] == 2 ){ ?> 
           <li  class="col-md-2 offset-md-5 nav-item">
-            <a class="nav-link border-right" href="Home"><i class="fas fa-home mr-2"></i>Inicio</a>
+            <a class="nav-link border-right" href="Inicio"><i class="fas fa-home mr-2"></i>Inicio</a>
           </li>
           <li   class="col-md-2  nav-item">
             <a class="nav-link border-right" href="#"><i class="fas fa-store mr-2"></i>Mi tienda</a>
@@ -121,7 +80,6 @@ $usuario = $buscar_usuario->fetchAll(PDO::FETCH_ASSOC);
             </div>
           
         </a>
-<<<<<<< HEAD
         
         <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
           
@@ -138,18 +96,6 @@ $usuario = $buscar_usuario->fetchAll(PDO::FETCH_ASSOC);
         <?php } ?>
 
           
-=======
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-					<form action="/shoppingapp/Admin/" method="POST">
-						<input type="hidden" name="menu" value="registro_categoria" />
-						<a class="dropdown-item" href="#" value="category" name="menu" onclick="this.parentNode.submit()" >Gestión de categoría</a>
-          </form>
-          <form action="/shoppingapp/Login/" method="POST">
-						<input type="hidden" name="sesion" value="cerrar" />
-						<a class="dropdown-item" href="#" value="salir" name="menu" onclick="this.parentNode.submit()" >Salir</a>
-					</form>
-          <a class="dropdown-item" href="#">algo más</a>
->>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
           <div class="dropdown-divider"></div>
 
           <?php if($usuario[0]['FK_TipoUsuario'] == 1 || $usuario[0]['FK_TipoUsuario'] == 3 ){ ?>
@@ -173,15 +119,9 @@ $usuario = $buscar_usuario->fetchAll(PDO::FETCH_ASSOC);
 
 <?php if($usuario[0]['FK_TipoUsuario'] == 1 || $usuario[0]['FK_TipoUsuario'] == 3 ){ ?>
 <!-- segundo nav -->
-<<<<<<< HEAD
 <div class="row cont_segundo_nav" style="width:100%;">
 	<div class="col-md-4 cont_imagen">
-		<a href="Home"><div class="col-md-10 offset-md-1" id="logo1" alt=""></div></a>
-=======
-<div class="row" style="width:100%;">
-	<div class="col-md-4">
-		<a href="/shoppingapp/Home/"><div class="col-md-10 offset-md-1" id="logo1" alt=""></div></a>
->>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
+		<a href="Inicio"><div class="col-md-10 offset-md-1" id="logo1" alt=""></div></a>
 	</div>
 	<div class="col-md-6" >
 			<form class="form-inline" id="search-form" action="#" method="post">
@@ -191,11 +131,7 @@ $usuario = $buscar_usuario->fetchAll(PDO::FETCH_ASSOC);
 	</div>
 	<div class="col-md-2">
     <div style="display:flex;">
-<<<<<<< HEAD
       <a id="lbl-carrito" href="Carrito"> <i class="fas fa-shopping-cart"></i> Carrito ( <?php echo count($carrito) ?> )</a>
-=======
-      <a id="lbl-carrito" href="/shoppingapp/Carrito/"> <i class="fas fa-shopping-cart"></i> Carrito ( <?php echo count($carrito) ?> )</a>
->>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
 		</div>
 		
 	</div>

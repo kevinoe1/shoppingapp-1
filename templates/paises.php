@@ -1,7 +1,7 @@
-<?php include 'header_admin.php' ?>
+<?php include 'header_admin.php' ?> 
 <?php 
 error_reporting(E_ALL);
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
 	//include '../scripts/comprobaciones.php';
 
 	$txtID=(isset($_POST['PK_Pais']))?$_POST["PK_Pais"]:"";

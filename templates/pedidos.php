@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
 include '../global/config.php';
 include '../global/conexion.php';
 include ('../global/const.php');
@@ -166,7 +166,6 @@ $total_pages = ceil(count($lista_pedidos_total) / $items_por_pagina);
 
 </head>
 <body>
-   
 <?php require ('header.php') ?>
 <div class="alert alert-secondary">Inicio / Pedidos</div>
  <div class="row" style="width:100%;margin:0px;">

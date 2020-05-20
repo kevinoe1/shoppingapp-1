@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
 include '../global/config.php';
 include '../global/conexion.php';
 include '../global/const.php';
@@ -29,9 +29,9 @@ session_start();
  $usuario = $consulta_tipo_usuario->fetchAll(PDO::FETCH_ASSOC);
  
  
- if($usuario[0]['EstadoCorreo'] == 0){
-     header('Location: Login?p=nc');
- }
+//  if($usuario[0]['EstadoCorreo'] == 0){
+//      header('Location: Login?p=nc');
+//  }
 
 
 ?>

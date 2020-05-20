@@ -1,7 +1,7 @@
 <?php 
     include '../global/const.php';
     error_reporting(E_ALL);
-    ini_set('display_errors', '0');
+    ini_set('display_errors', '1');
 
     $accion = (isset($_REQUEST['accion']))?$_REQUEST['accion']:"";
     

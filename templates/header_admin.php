@@ -1,6 +1,6 @@
 <?php 
 error_reporting(E_ALL);
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
 
 if(!isset($pdo)){
   include '../global/config.php';
@@ -68,7 +68,7 @@ if($usuario[0]['FK_TipoUsuario']!=3){
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
-        <li class="nav-item " id="paises">
+            <li class="nav-item " id="paises">
             <a class="nav-link " href="<?php echo URL_SITIO?>Admin" >Inicio
             </a>
           </li>

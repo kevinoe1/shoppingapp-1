@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
 include '../global/config.php';
 include '../global/conexion.php';
 include '../global/const.php';
@@ -263,7 +263,7 @@ $select_detalle_pedidos = $pdo->prepare("SELECT p.NombreProducto,
                             <div class="card-body">
                                 
                             <div class="row">
-                            <div class="col-md-4 square container temp-border"> <img class="crop col-md-12" src="<?php echo URL_SITIO.$detalle_pedido['Imagen'] ?>" alt=""> </div>
+                            <div class="col-md-4 square container temp-border"> <img class="crop col-md-12" src="../<?php echo $detalle_pedido['Imagen'] ?>" alt=""> </div>
                             <div class="col-md-8 temp-border">
                                 <div class="detail_up col-md-12 temp-border">
                                     <h4 class=""><?php echo $detalle_pedido['NombreProducto'] ?>  

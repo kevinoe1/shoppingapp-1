@@ -20,25 +20,7 @@ $u = (isset($_REQUEST['u']))?$_REQUEST['u']:"";
 ?>
 
 
-<div class="cargando col-md-12">
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="col-md-4 offset-md-4">
-        <img src="<?php echo URL_SITIO ?>static/img/Logo_shoppingapp_v2.png" width="100%" alt="">
-    </div>
-    <div class="col-md-4 offset-md-4">
-        <img src="<?php echo URL_SITIO ?>static/img/ajax-loader.gif" width="100%" alt="">
-    </div>
-</div>
 
-<div role="alert" data-delay="5000" aria-live="assertive" aria-atomic="true" id="toast_mensaje" class="toast" data-autohide="true">
-    <div class="toast-body">
-    </div>
-</div> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,15 +43,33 @@ $u = (isset($_REQUEST['u']))?$_REQUEST['u']:"";
  
     <link href="<?php echo URL_SITIO ?>static/css/login.css" rel="stylesheet" type="text/css" media="all" />
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400&display=swap" rel="stylesheet">
+
     <?php include 'iconos.php' ?>
 
 
     
 
 </head>
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v7.0&appId=606527096633387&autoLogAppEvents=1"></script>
 <body>
+<div class="cargando col-md-12">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="col-md-4 offset-md-4">
+        <img src="<?php echo URL_SITIO ?>static/img/Logo_shoppingapp_v2.png" width="100%" alt="">
+    </div>
+    <div class="col-md-4 offset-md-4">
+        <img src="<?php echo URL_SITIO ?>static/img/ajax-loader.gif" width="100%" alt="">
+    </div>
+</div>
+
+<div role="alert" data-delay="5000" aria-live="assertive" aria-atomic="true" id="toast_mensaje" class="toast" data-autohide="true">
+    <div class="toast-body">
+    </div>
+</div> 
    
 <br>
 <div class="row col-md-12">
@@ -115,13 +115,9 @@ $u = (isset($_REQUEST['u']))?$_REQUEST['u']:"";
 
         <button type="submit" class="btn-flat col-md-12">Iniciar sesión</button>
         <br>
-<<<<<<< HEAD
 
     <br>
         <p class="text-center" ><a href="Login-Tienda">Login para tiendas</a> </p>
-=======
-        <p class="text-center" ><a href="/shoppingapp/Login-Tienda/">Login for Shops</a> </p>
->>>>>>> 557c47d0325bc2e7beffc0721774dab9b7e52cb3
     </form>
 
     </div>
