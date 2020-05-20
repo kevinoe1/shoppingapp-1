@@ -105,7 +105,7 @@ if (isset($_SESSION['login_user'])){ //Comprobar si ha iniciado sesión
         }
     }
     
-    redirect('../Login');
+    redirect('Login');
 
 }
 ?>

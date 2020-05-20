@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
 include ("../global/config.php");
 include ("../global/conexion.php");
 include ("../global/const.php");
@@ -46,7 +46,7 @@ include ("../global/const.php");
                 $insert_usuario->bindParam(':Foto', $foto);
                 $insert_usuario->bindParam(':CodigoConfirmacion', $codigo_confirmacion);
                 
-                echo json_encode($_POST);
+                
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                 try{
@@ -87,6 +87,7 @@ include ("../global/const.php");
                 
                 try{
                     $insert_tienda->execute();
+                    //header('Location: ../Login-Tienda');
                     header('location: email_tienda.php?c='.$codigo_confirmacion.'&m='.$correo);
                 }catch(PDOException $e){
                     echo "Error ". $e->getMessage() . $e->errorInfo();

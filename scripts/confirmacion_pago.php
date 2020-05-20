@@ -1,6 +1,6 @@
 <?php 
 error_reporting(E_ALL);
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
 include '../global/config.php';
 include '../global/conexion.php';
 
@@ -258,18 +258,18 @@ session_start();
                 $eliminar_temp->execute(); 
 
                 //reducir del inventario
-                $eliminar_temp = $pdo->prepare("SET @cant = (SELECT UnidadesDisponibles FROM Productos WHERE PK_Producto = :PK_Producto);
+                $reducir = $pdo->prepare("SET @cant = (SELECT UnidadesDisponibles FROM Productos WHERE PK_Producto = :PK_Producto);
                                                 SET @ven = (SELECT UnidadesVendidas FROM Productos WHERE PK_Producto = :PK_Producto);
                                                 UPDATE Productos
-                                                SET UnidadesDisponibles = (  @cant - :Cantidad ),
-                                                UnidadesVendidas = (  @ven + :Cantidad ) 
+                                                SET UnidadesDisponibles = UnidadesDisponibles - :Cantidad ,
+                                                UnidadesVendidas = UnidadesVendidas + :Cantidad 
                                                 WHERE PK_Producto  = :PK_Producto;");
 
-                $eliminar_temp->bindParam(':PK_Producto', $pk_producto);
-                $eliminar_temp->bindParam(':Cantidad', $cantidad);
+                $reducir->bindParam(':PK_Producto', $pk_producto);
+                $reducir->bindParam(':Cantidad', $cantidad);
 
                 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $eliminar_temp->execute(); 
+                $reducir->execute(); 
 
                 //Añadir unidad vendida
                 $actualizar_vendidas = $pdo->prepare("SET @cant = (SELECT UnidadesVendidas FROM Productos WHERE PK_Producto = :PK_Producto);

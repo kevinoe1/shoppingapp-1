@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
 include ("../global/config.php");
 include ("../global/conexion.php");
 
@@ -77,6 +77,7 @@ include ("../global/conexion.php");
                 $insert_cliente->bindParam(':Telefono', $telephone);
                 try{
                     $insert_cliente->execute();
+                    //header('Location: ../Inicio');
                     header('location: ../scripts/email.php?c='.$codigo_confirmacion.'&m='.$email);
                 }catch(PDOException $e){
                     echo "Error ". $e->getMessage();
