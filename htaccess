@@ -38,3 +38,4 @@ RewriteRule ^Pago/?$ templates/pago.php
 RewriteRule ^Index/?$ index.php
 RewriteRule ^Confirmacion-Pago/?$ templates/confirmacion_pago.php
 RewriteRule ^Confirma/?$ templates/confirmacion_pago.php
+RewriteRule ^Inicio/?$ templates/paises_inicio.php
