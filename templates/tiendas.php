@@ -9,16 +9,40 @@ session_start();
 
 require ('../scripts/comprobaciones.php');
 
-   
-    $id = (isset($_GET['idPais'])) ? $_GET['idPais'] : 0;
+unset($_SESSION['tienda']);
+
+$busqueda = (isset($_POST['busqueda'])) ? $_POST['busqueda'] : "";
+
+$str_busqueda = '';
+if($busqueda!=''){
+    $str_busqueda = " AND NombreTienda LIKE '%" . $busqueda . "%'";
+}
+
+    $listaPaises = [];
+    $id = (isset($_GET['idPais'])) ? $_GET['idPais'] : "";
+    if($id != ""){
+      $_SESSION['pais'] = $id;
+    }
+
+    if(!isset($_SESSION['pais'])){
+      header('Location: Inicio?msj=nopais');
+    }
+
     $sentenc = $pdo->prepare("SELECT t.PK_Tienda, t.NombreTienda,t.logo, c.PK_Ciudad,c.NombreCiudad,p.PK_Pais,p.NombrePais
-                              FROM Tiendas t INNER JOIN Ciudades c
-                              ON t.FK_Ciudad=c.PK_Ciudad INNER JOIN Paises p
-                              ON c.FK_Pais=p.PK_Pais
-                              WHERE p.PK_Pais=".$id."");
+    FROM Tiendas t INNER JOIN Ciudades c
+    ON t.FK_Ciudad=c.PK_Ciudad INNER JOIN Paises p
+    ON c.FK_Pais=p.PK_Pais
+    WHERE p.PK_Pais=".$_SESSION['pais']. $str_busqueda ."");
+    
     $sentenc->execute();
     $listaPaises = $sentenc->fetchAll(PDO::FETCH_ASSOC);
-  ?> 
+    
+
+    
+
+?> 
+
+
 
  
  
@@ -44,6 +68,12 @@ require ('../scripts/comprobaciones.php');
   </head>
   <body>
   <?php include 'header.php'; ?>
+    <div class="col-md-12 text-center titulo">
+			<h2>Tiendas</h2>
+    </div>	
+    <div class="alert col-md-12 alert-danger text-center"></div>
+
+		<br>
 <div class="container">
 	<div class="row">
 
@@ -75,16 +105,33 @@ require ('../scripts/comprobaciones.php');
                 </div>
              <?php } ?>
       <?php }else{ ?>
-        <div style="margin-bottom:50px;" class="text-center col-md-10 offset-md-1 card-msj">
-            <img class="col-md-6 " width="100%" src="<?php echo URL_SITIO?>static/img/no_tiendas.png" alt="">
-            <br>
-            <br>
-            <br>
-            <p>Lo sentimos, pero aun no hay tiendas registradas dentro este País.
-            <span>Favor revise la sección principal, para más opciones</span></p>            
-            <br>
-            <a class="btn-flat" href="<?php echo URL_SITIO?>Inicio">Otros paises</a>        
-        </div>
+
+        <?php  if($busqueda == '' and !isset($_GET['msj'])){ ?>
+          <div style="margin-bottom:50px;" class="text-center col-md-10 offset-md-1 card-msj">
+              <img class="col-md-6 " width="100%" src="<?php echo URL_SITIO?>static/img/no_tiendas.png" alt="">
+              <br>
+              <br>
+              <br>
+              <p>Lo sentimos, pero aun no hay tiendas registradas dentro este País.
+              <span>Favor revise la sección principal, para más opciones</span></p>            
+              <br>
+              <a class="btn-flat" href="<?php echo URL_SITIO?>Inicio">Otros paises</a>        
+          </div>
+        <?php }else{ echo '<div style="height:50vh;"></div>'; } ?>
+
+        <?php  if($busqueda != ''){ ?>
+          <div style="margin-bottom:50px;" class="text-center col-md-10 offset-md-1 card-msj">
+              <img class="col-md-6 " width="100%" src="<?php echo URL_SITIO?>static/img/no_tiendas.png" alt="">
+              <br>
+              <br>
+              <br>
+              <p>Lo sentimos, pero no encontramos la tienda "<strong><?php echo $busqueda ?></strong>" en el país seleccionado.
+              <span>Favor revise la sección principal, para más opciones</span></p>            
+              <br>
+              <a class="btn-flat" href="<?php echo URL_SITIO?>Inicio">Otros paises</a>        
+          </div>
+        <?php } ?>
+
       <?php } ?>
        
     
@@ -94,5 +141,25 @@ require ('../scripts/comprobaciones.php');
 <?php include 'footer.php'; ?>
   </body>
   </html>
+
+<script type="text/javascript">
+  $('#btn-buscar-producto').click(function(e){
+			e.preventDefault()
+			$('#search-form').attr("action", "<?php URL_SITIO ?>Tiendas");
+			$('#search-form').submit();
+	 });
+
+ 
+	$('.alert-danger').hide();
+
+	<?php if(isset($_GET['msj'])){ 
+			if($_GET['msj']=='notienda'){?>
+
+				$('.alert-danger').html('Debes seleccionar primero una tienda').show();
+
+	<?php }
+	} ?>
+
+</script>  
 
 

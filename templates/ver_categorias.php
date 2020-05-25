@@ -52,7 +52,7 @@ $listaCategorias = $select_categorias->fetchAll(PDO::FETCH_ASSOC);
             <tbody>
                 <?php foreach($listaCategorias as $categoria){ ?>
                 <tr WIDTH="100%">
-                    <td  WIDTH="30%"><img id="imagen_<?php echo $categoria['PK_Categoria']?>" class="col-md-12" src="<?php echo URL_SITIO ?>uploads/img/categorias/<?php echo $categoria['Imagen'] ?>" alt=""></td>
+                    <td  WIDTH="30%" ><div class="cont_imagen"><img id="imagen_<?php echo $categoria['PK_Categoria']?>" class="col-md-12 imagen" src="<?php echo URL_SITIO ?>uploads/img/categorias/<?php echo $categoria['Imagen'] ?>" alt=""></div ></td>
                     <td id="nombreCategoria_<?php echo $categoria['PK_Categoria']?>" WIDTH="20%"><?php echo $categoria['NombreCategoria'] ?></td>
                     <td id="descripcion_<?php echo $categoria['PK_Categoria']?>"  WIDTH="40%"><?php echo $categoria['Descripcion'] ?></td>
                     <td id="estado_<?php echo $categoria['PK_Categoria']?>" WIDTH="10%"><?php echo $categoria['Estado'] ?></td>
@@ -87,10 +87,14 @@ $listaCategorias = $select_categorias->fetchAll(PDO::FETCH_ASSOC);
                             <label for="inputAddress2">Descripción</label>
                             <input type="text" class="form-control" name="input_descripcion" id="inputDescripcion" placeholder="">
                         </div>
+                        <br>
                         <label for="inputAddress2">Imagen</label>
-                        <div class="col-md-3">
-                                <div class="col-md-12" id="showImagen">ferfef</div>
+                        <div class="col-md-6 offset-md-3">
+                            <div class="col-md-12" id="cont_imagen">
+                                <img id="showImagen" style="width:100%" src="" alt="">
                             </div>
+                        </div>
+                        <br>
                         <div class="custom-file">
                             <input type="file" accept="image/*" class="custom-file-input" id="inputImagen" name="input_imagen">
                             <label class="custom-file-label" for="customFile">Cambiar imagen</label>
@@ -220,6 +224,14 @@ $listaCategorias = $select_categorias->fetchAll(PDO::FETCH_ASSOC);
 
     });
 
+    $('#inputImagen').bind('change', function() {
+            var peso = this.files[0].size/1024/1024;
+            if(peso > 5){
+                toast('Imagen demasiado pesada, debe pesar menos de 5 MB');
+                this.val("");
+            };
+    });
+
      
     $('#btnEliminar').click(function(e){
         e.preventDefault();
@@ -237,7 +249,7 @@ $listaCategorias = $select_categorias->fetchAll(PDO::FETCH_ASSOC);
          var src_img = $('#imagen_' + pk_categoria).attr('src');
          $('#inputCategoryName').val($('#nombreCategoria_'+pk_categoria)[0].innerText);
          $('#inputDescripcion').val($('#descripcion_'+pk_categoria)[0].innerText);
-         $('#showImagen').css('content', "url('" + src_img + "' )");
+         $('#showImagen').attr('src', src_img);
          $('#PK_Categoria').val(pk_categoria);
 
         if($('#estado_'+pk_categoria)[0].innerText == 1){
@@ -253,5 +265,23 @@ $listaCategorias = $select_categorias->fetchAll(PDO::FETCH_ASSOC);
          $('#PK_CategoriaEl').val(pk_categoria);
 
      }
+
+     function vistaPrevia(input){
+        if(input.files && input.files[0]){
+            var reader = new FileReader();
+            
+           
+            reader.onload = function(e){
+                $('#cont_imagen').html("<img style='width:100%' id='showImagen' src='"+ e.target.result +"' >");
+                console.log(e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $('#inputImagen').change(function(){
+        vistaPrevia(this);
+    });
 
 </script>

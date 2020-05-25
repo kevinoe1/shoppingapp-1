@@ -31,8 +31,10 @@ $select_colores->execute();
 $colores = $select_colores->fetchAll(PDO::FETCH_ASSOC);
 
 
-$select_producto = $pdo->prepare("SELECT p.Ranking, p.Adomicilio as 'pAdomicilio', p.PK_Producto, p.NombreProducto, t.NombreTienda, p.PrecioUnitario, p.Descuento, t.Adomicilio, p.PrecioEnvio, p.UnidadesDisponibles, p.Imagen FROM 
-                                Productos p INNER JOIN Tiendas t ON p.FK_Tienda = t.PK_Tienda
+$select_producto = $pdo->prepare("SELECT p.Ranking, p.Adomicilio as 'pAdomicilio', p.PK_Producto, p.NombreProducto, t.NombreTienda, p.PrecioUnitario, p.Descuento, t.Adomicilio, p.PrecioEnvio, p.UnidadesDisponibles, p.Imagen, c.NombreCategoria, p.Descripcion FROM 
+                                Productos p INNER JOIN Tiendas t 
+                                ON p.FK_Tienda = t.PK_Tienda INNER JOIN Categorias c
+                                ON c.PK_Categoria = p.FK_Categoria
                                 WHERE p.PK_Producto = :PK_Producto");
 $select_producto->bindParam(':PK_Producto', $pk_producto);
 $select_producto->execute();
@@ -80,25 +82,14 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
     <?php include 'iconos.php' ?>
 </head>
 <body>
-    <!-- toast -->
-  
-<div role="alert" data-delay="5000" aria-live="assertive" aria-atomic="true" id="toast_mensaje" class="toast" data-autohide="true">
-        
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        <div class="toast-body">
-            
-        </div>
-        
-</div> 
- <!-- /toast -->   
+   
+   
 
 <?php include '../templates/header.php'; ?>
 
 <!-- DIV temporal -->
 <div style="" class="text-center">
-<div style="font-size:15px;color:gray;" class="alert text-left alert-secondary">NombreTienda / Categoría / producto</div>
+<div style="font-size:15px;color:gray;" class="alert text-left alert-secondary"><?php echo $productos[0]['NombreTienda'] ?> / <?php echo $productos[0]['NombreCategoria'] ?> / <?php echo $productos[0]['NombreProducto'] ?> </div>
 
     <div class="no-padding-both no_padding_both container">
   
@@ -175,7 +166,7 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
                     <?php } ?>
                     <div class="form-group col-md-4 text-left">
                         <label for="inputCantidad">Cantidad:</label><label class="text-bold unidades_disponibles" for="" >(<?php echo $productos[0]['UnidadesDisponibles'] ?> disponibles)</label>
-                        <input class="col-md-12 frm_ctrl form-control" type="number" id="inputCantidad" name="input_cantidad" min="1" max="5">
+                        <input class="col-md-12 frm_ctrl form-control" type="number" id="inputCantidad" name="input_cantidad" min="1" max="<?php echo $productos[0]['UnidadesDisponibles'] ?>">
                     </div>
                     <?php if(count($colores)>0){ ?>
                         <div class="form-group col-md-4 no_padding_both  text-left">
@@ -289,6 +280,9 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-md-4">
                         <button value="agregar_carrito"  name="action"  type="" id="btn-add-to-cart" class="btn col-md-12">Agregar al carrito</button>
                     </div>
+                    <div class="carrito-btn col-md-4 text-left">
+                         <a style="text-decoration:none;font-size:20px;" href="<?php echo URL_SITIO ?>Carrito"> <li class="fa fa-shopping-cart"></li> Carrito</a>                   
+                    </div>
                 </div>
                 <br>
                 <br>
@@ -304,10 +298,13 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
         <br>
 
     </div>
-        <!-- <div class="row  white-back internal-padding text-left ">
-            <h4>Item description</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi hic earum sequi quaerat ratione totam doloremque corporis. Qui pariatur fuga quaerat enim hic nobis illum, nisi quidem perspiciatis, iure facilis.</p>
-        </div> -->
+        <div class="container cont-descripcion white-back internal-padding text-left ">
+            <h4 class="col-md-12">Descripcción del artículo</h4>
+            <br>
+            <textarea class="text-descripccion" disabled class="col-md-12">
+                <?php echo $productos[0]['Descripcion'] ?>
+            </textarea>
+        </div>
     </div>
     
     <br>
@@ -320,13 +317,59 @@ $destinatarios = $select_destinatarios->fetchAll(PDO::FETCH_ASSOC);
 
 </div>
 
-
+<div role="alert" data-delay="5000" aria-live="assertive" aria-atomic="true" id="toast_mensaje" class="toast" data-autohide="true">
+        <div class="toast-body">
+        </div>
+</div>
 </body>
 </html>
 
 <script type="text/javascript">
-//  $("#mensaje_alert").css("visibility", "hidden");
 $('#box_destinatario').hide();
+
+$('#lbl-carrito').hide();
+
+    $('#btn-buy').click(function(e){
+        var unidades_disponibles;
+        $.ajax({
+                type:"POST",
+                async: false,
+                url:"<?php echo URL_SITIO ?>scripts/datos_ajax.php",
+                data: {"request" : "unidadesDisponibles", 
+                        "PK_Producto" : <?php echo $productos[0]['PK_Producto'] ?>},
+                success:function(r){
+                    unidades_disponibles = r;
+                }
+        });
+
+        if($('#inputCantidad').val() > unidades_disponibles){
+            e.preventDefault();
+            $('.toast-body').html('No hay suficientes unidades dispobibles de este producto');
+            $('#toast_mensaje').toast('show');
+        }
+
+    });
+
+    $('#btn-add-to-cart').click(function(e){
+        var unidades_disponibles;
+        $.ajax({
+                type:"POST",
+                async: false,
+                url:"<?php echo URL_SITIO ?>scripts/datos_ajax.php",
+                data: {"request" : "unidadesDisponibles", 
+                        "PK_Producto" : <?php echo $productos[0]['PK_Producto'] ?>},
+                success:function(r){
+                    unidades_disponibles = r;
+                }
+        });
+
+        if($('#inputCantidad').val() > unidades_disponibles){
+            e.preventDefault();
+            $('.toast-body').html('No hay suficientes unidades dispobibles de este producto');
+            $('#toast_mensaje').toast('show');
+        }
+        
+    });
 
 	$(document).ready(function(){
 
@@ -360,11 +403,11 @@ $('#box_destinatario').hide();
             toast('No se hacen envíos a domicilio para este producto');
         });
 
-        $('#contInputHomeSi').on('click', function(event){
+        $('#inputHomeSi').on('click', function(event){
             $('#box_destinatario').show();
         });
 
-         $('#contInputOnShop').on('click', function(event){
+         $('#inputRadioOnShop').on('click', function(event){
             $('#box_destinatario').hide();
         });
 
@@ -415,4 +458,5 @@ $('#box_destinatario').hide();
 
     });
 
+  
 </script>

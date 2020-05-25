@@ -31,17 +31,17 @@ $usuario = $buscar_usuario->fetchAll(PDO::FETCH_ASSOC);
     <ul class="row offset-md-2 col-md-10 navbar-nav ml-auto mt-2 mt-lg-0">
     
     <?php if($usuario[0]['FK_TipoUsuario'] == 1 ){ ?> 
-        <li class="col-md-2 offset-md-1 nav-item">
-            <a class="nav-link border-right" href="Inicio"><i class="fas fa-home mr-2"></i>Inicio</a>
+      <li class="col-md-2 offset-md-1 nav-item">
+            <a class="nav-link border-right" href="<?php echo URL_SITIO ?>Home"><i class="fas fa-home mr-2"></i>Inicio</a>
           </li>
+        <li class="col-md-2 nav-item">
+            <a class="nav-link border-right" href="<?php echo URL_SITIO ?>Inicio"><i class="fas fa-globe-americas mr-2"></i>Paises</a>
+          </li>
+        <li   class="col-md-2 nav-item">
+          <a class="nav-link border-right" href="<?php echo URL_SITIO ?>Tiendas"><i class="fas fa-store"></i> Tiendas</a>
+        </li>
         <li   class="col-md-2  nav-item">
-          <a class="nav-link border-right" href="Pedidos"><i class="fas fa-box mr-2"></i>Pedidos </a>
-        </li>
-        <li   class="col-md-2 nav-item">
-          <a class="nav-link border-right" href="#"><i class="fas fa-map-marker mr-2"></i>País</a>
-        </li>
-        <li   class="col-md-2 nav-item">
-          <a class="nav-link border-right" href="#"><i class="fas fa-phone mr-2"></i>2781 0000</a>
+          <a class="nav-link border-right" href="<?php echo URL_SITIO ?>Pedidos"><i class="fas fa-box mr-2"></i>Pedidos </a>
         </li>
     <?php } ?>
       <?php if(!isset($_SESSION['login_user'])){ ?>
@@ -121,12 +121,12 @@ $usuario = $buscar_usuario->fetchAll(PDO::FETCH_ASSOC);
 <!-- segundo nav -->
 <div class="row cont_segundo_nav" style="width:100%;">
 	<div class="col-md-4 cont_imagen">
-		<a href="Inicio"><div class="col-md-10 offset-md-1" id="logo1" alt=""></div></a>
+		<a href="Home"><div class="col-md-10 offset-md-1" id="logo1" alt=""></div></a>
 	</div>
 	<div class="col-md-6" >
 			<form class="form-inline" id="search-form" action="#" method="post">
-					<input class="input-flat col-md-9 form-control" type="search" placeholder="Búsqueda" aria-label="Search" required>
-					<button class="col-md-2 btn-flat" type="submit">Buscar</button>
+					<input id="busqueda" name="busqueda" class="input-flat col-md-9 form-control" type="search" placeholder="Búsqueda" aria-label="Search" value="<?php echo (isset($_POST['busqueda'])) ? $_POST['busqueda'] : "" ?>">
+					<button class="col-md-2 btn-flat" id="btn-buscar-producto" type="submit">Buscar</button>
 			</form>
 	</div>
 	<div class="col-md-2">

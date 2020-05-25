@@ -22,7 +22,7 @@ ini_set('display_errors', '1');
 					if(count($existe)!=0)
 					{
 						#echo "<script> alert('Ya exite un registro con ese nombre de Pais'); </script>";
-						console.log("ya hay un pais");
+						//console.log("ya hay un pais");
 					}else{
 							
 							if($imagen !=""){
@@ -211,6 +211,13 @@ ini_set('display_errors', '1');
 		    var fileName = $(this).val().split("\\").pop();
 		    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 		});
+
+		$('#btn-buscar-producto').click(function(e){
+			e.preventDefault()
+			$('#search-form').attr("action", "<?php URL_SITIO ?>Inicio");
+			$('#search-form').submit();
+		})
+
 	</script>
 
 <?php include 'footer_admin.php' ?>

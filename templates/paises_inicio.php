@@ -7,7 +7,31 @@ include '../global/const.php';
 
 session_start();
 
+unset($_SESSION['pais']);
+
 require ('../scripts/comprobaciones.php');
+
+// Consultar el tipo de usuario
+$consulta_tipo_usuario = $pdo->prepare("SELECT * FROM Usuarios
+										WHERE PK_Usuario = :PK_Usuario;");
+$consulta_tipo_usuario->bindParam(':PK_Usuario', $_SESSION['login_user']);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$consulta_tipo_usuario->execute();
+$usuario = $consulta_tipo_usuario->fetchAll(PDO::FETCH_ASSOC);
+
+if($usuario[0]['FK_TipoUsuario'] == 2){
+	header('Location: Home-Tienda');
+}else if($usuario[0]['FK_TipoUsuario'] == 3){
+    header('Location: Admin');
+}
+
+
+$busqueda = (isset($_POST['busqueda'])) ? $_POST['busqueda'] : "";
+
+$str_busqueda = '';
+if($busqueda!=''){
+    $str_busqueda = " WHERE NombrePais LIKE '%" . $busqueda . "%'";
+}
 
 	// $sentenc = $pdo->prepare("SELECT p.PK_Pais,p.NombrePais,p.Logo
 	// 						FROM Paises p inner JOIN Ciudades c
@@ -16,6 +40,7 @@ require ('../scripts/comprobaciones.php');
 	// 						ORDER BY p.NombrePais asc");
 	$sentenc = $pdo->prepare("SELECT p.PK_Pais,p.NombrePais,p.Logo
 							FROM Paises p
+							". $str_busqueda ."
 							ORDER BY p.NombrePais asc");
 	$sentenc->execute();
 	$listaPaises = $sentenc->fetchAll(PDO::FETCH_ASSOC);
@@ -46,12 +71,16 @@ require ('../scripts/comprobaciones.php');
 </head>
 <body>
 	<?php include './header.php'; ?>
-
+				<div class="col-md-12 text-center titulo">
+					<h2>Países</h2>
+				</div>	
+				<div class="alert col-md-12 alert-danger text-center"></div>
+				<br>
 	<div class="container height-full">
 		<div class="row">
-
+			
 			<?php foreach ($listaPaises as $pais){?>
-													
+												
 				<div  class="col-xl-3 col-sm-6 mb-4 ">
 					<div id="new" class="card text-white bg-muted o-hidden h-100">
 						<div class="card-body">
@@ -86,5 +115,17 @@ require ('../scripts/comprobaciones.php');
 	<?php include 'footer.php'; ?>
 </body>
 </html>
+
+<script type="text/javascript">
+	$('.alert-danger').hide();
+
+	<?php if(isset($_GET['msj'])){ 
+			if($_GET['msj']=='nopais'){?>
+
+				$('.alert-danger').html('Debes seleccionar primero un país').show();
+
+	<?php }
+	} ?>
+</script>
 
 
