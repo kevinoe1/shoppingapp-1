@@ -77,6 +77,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                     header('location: ../Registro-Datos?menu=ver_categorias&msj=muypesada');
                     $uploadOk = 0;
                 }elseif($tmp_foto != ""){
+                    
+                    $select_categoria = $pdo->prepare("SELECT * FROM Categorias
+                                                    WHERE PK_Categoria = :PK_Categoria");
+                    $select_categoria->bindParam(':PK_Categoria', $pk_categoria);
+                    $select_categoria->execute();
+                    $categoria = $select_categoria->fetchAll(PDO::FETCH_ASSOC);
+                    $foto_actual = $categoria[0]['Imagen'];
+                    if(file_exists ('../uploads/img/categorias/'.$foto_actual)){
+                        unlink('../uploads/img/categorias/'.$foto_actual);
+                    }
                     move_uploaded_file($tmp_foto, '../uploads/img/categorias/'.$nombre_archivo);
                 }
             }

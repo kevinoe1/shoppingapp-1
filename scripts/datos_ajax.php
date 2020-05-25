@@ -35,7 +35,10 @@ switch($request){
 		verificarRegionEnvio();
 	break;
 	case "probarURL":
-	probarURL();
+		probarURL();
+	break;
+	case "unidadesDisponibles":
+		unidadesDisponibles();
 	break;
 }
 	function selectCiudades(){
@@ -236,10 +239,22 @@ switch($request){
 		}else{
 			echo 1;
 		}
-
-		
-
 	}
+
+	function unidadesDisponibles(){
+		global $pdo;
+
+		$pk_producto = (isset($_POST['PK_Producto']))?$_POST['PK_Producto']:"";
+
+		$buscar_producto = $pdo->prepare("SELECT * FROM Productos WHERE PK_Producto = :PK_Producto");
+		$buscar_producto->bindParam(':PK_Producto', $pk_producto);
+		$buscar_producto->execute();
+		$producto = $buscar_producto->fetchAll(PDO::FETCH_ASSOC);
+
+		echo $producto[0]['UnidadesDisponibles'];
+	}
+
+
 
 
 	
