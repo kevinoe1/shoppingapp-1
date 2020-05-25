@@ -156,6 +156,26 @@ a{
 }
 
 
+.btn-flat {
+    background-color: #E86713;
+    border: none;
+    padding: 10px 0px!important;
+    color: white;
+    margin-left: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.cont-descripcion{
+    padding: 30px;
+}
+
+.text-descripccion{
+    height: 100%!important;
+    border:0px!important;
+    height: 50vh!important;
+    width: 100% !important;
+}
 
 
 
@@ -198,7 +218,7 @@ a{
     }
 
     label, a{
-        font-size: 1.2em;
+        font-size: 1em;
         margin:0px;
     }
 
@@ -262,6 +282,12 @@ a{
         color: #000;
         text-shadow: 0 0px 0 #fff;
         opacity: 1;
+    }
+
+    .carrito-btn{
+        text-align: center!important;
+        margin-top: 10px;
+        font-size: 20px;
     }
 
 }

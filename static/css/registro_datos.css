@@ -115,3 +115,20 @@ button.close{
     background-color: rgba(8, 124, 233, 0.89)!important;
     border: none;
 }
+
+.cont_imagen{
+    height: 140px;
+    width: 150px;
+    overflow: hidden;
+    position: relative;
+    margin:auto;
+}
+
+.imagen{
+    position: absolute;
+    height: 130px;
+    min-height: 150px;
+    min-width: 150px;
+    background-color: transparent;
+    padding: 0px!important;
+}
